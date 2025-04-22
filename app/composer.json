@@ -11,13 +11,18 @@
         "doctrine/doctrine-bundle": "^2.14",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
+        "knplabs/knp-paginator-bundle": "^6.8",
         "symfony/console": "7.2.*",
         "symfony/dotenv": "7.2.*",
         "symfony/flex": "^2",
+        "symfony/form": "7.2.*",
         "symfony/framework-bundle": "7.2.*",
         "symfony/runtime": "7.2.*",
+        "symfony/security-bundle": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
-        "symfony/yaml": "7.2.*"
+        "symfony/validator": "7.2.*",
+        "symfony/yaml": "7.2.*",
+        "symfonycasts/verify-email-bundle": "^1.17"
     },
     "config": {
         "allow-plugins": {

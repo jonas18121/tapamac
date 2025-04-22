@@ -1,0 +1,51 @@
+{% extends 'general/base.html.twig' %}
+
+{% block title %}Liste de categorie{% endblock %}
+
+{% block body %}
+    <section class="get_list_category">
+        <p><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
+
+        {% if pagination is defined and pagination is not empty  %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">nom</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in pagination %}
+                        <tr>
+                            <th scope="row">{{ category.id }}</th>
+                            <td>
+                                <a href="{{ path('app_backend_category_detail', { id: category.id }) }}">
+                                    {{ category.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_backend_category_update', { id: category.id }) }}">Modifier</a>
+
+                                <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catéroie ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                    <button class='btn_delete_category'>Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune catégorie n'est créée</p>
+        {% endif %}
+    </section>
+
+    {% if pagination is defined and pagination is not empty %}
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endif %}
+{% endblock %}

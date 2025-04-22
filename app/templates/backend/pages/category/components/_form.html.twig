@@ -1,0 +1,11 @@
+{{ form_start(formCategory, { 'attr' : { 'class' : 'form' }} ) }}
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Titre</label>
+            {{ form_widget(formCategory.name, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formCategory.name) }}</small>
+    </div>
+
+    <button type="submit" class="btn">Valider</button>
+{{ form_end(formCategory) }}

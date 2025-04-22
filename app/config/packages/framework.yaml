@@ -8,6 +8,8 @@ framework:
     #esi: true
     #fragments: true
 
+    http_method_override: true # On peut modifier une methode grace à un champ cacher
+
 when@test:
     framework:
         test: true

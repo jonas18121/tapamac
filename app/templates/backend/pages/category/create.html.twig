@@ -1,0 +1,18 @@
+{% extends "general/base.html.twig" %}
+
+{% block title 'Créer une catégorie' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1>Créer une catégorie</h1>
+
+        <div class="container_form">
+            {% include 'backend/pages/category/components/_form.html.twig' with {'formCategory': formCategory } %}
+        </div>
+    </div>
+{% endblock body %}
