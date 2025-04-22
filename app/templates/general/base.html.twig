@@ -11,6 +11,12 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'components/_navbar.html.twig' %}
+
+        {% include 'components/_add_flash.html.twig' %}
+
         {% block body %}{% endblock %}
+
+        {% include 'components/_footer.html.twig' %}
     </body>
 </html>
