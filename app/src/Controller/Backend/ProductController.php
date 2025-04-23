@@ -24,7 +24,7 @@ final class ProductController extends AbstractController
     ): Response
     {
         return $this->render('backend/pages/product/list.html.twig', [
-            'pagination' => $productRepository->findPaginationList($request->query->getInt('page', 1), 'product')
+            'pagination' => $productRepository->findPaginationList($request->query->getInt('page', 1), 'product', 10)
         ]);
     }
 

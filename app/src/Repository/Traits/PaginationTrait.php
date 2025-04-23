@@ -25,7 +25,7 @@ trait PaginationTrait
     )
     {}
 
-    public function findPaginationList(int $page, string $name): ?SlidingPagination
+    public function findPaginationList(int $page, string $name, int $limit): ?SlidingPagination
     {
         /** @var array */
         $data = $this->createQueryBuilder($name)
@@ -34,7 +34,7 @@ trait PaginationTrait
             ->getResult();
 
         /** @var SlidingPagination */
-        $pagination = $this->paginationInterface->paginate($data, $page, 10);
+        $pagination = $this->paginationInterface->paginate($data, $page, $limit);
 
         if ($pagination instanceof SlidingPagination) {
             return $pagination;
