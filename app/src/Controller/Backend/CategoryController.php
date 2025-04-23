@@ -24,7 +24,7 @@ final class CategoryController extends AbstractController
     ): Response
     {
         return $this->render('backend/pages/category/list.html.twig', [
-            'pagination' => $categoryRepository->findPaginationList($request->query->getInt('page', 1), 'category')
+            'pagination' => $categoryRepository->findPaginationList($request->query->getInt('page', 1), 'category', 20)
         ]);
     }
 

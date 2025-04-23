@@ -23,7 +23,7 @@ final class UserController extends AbstractController
     ): Response
     {
         return $this->render('backend/pages/user/list.html.twig', [
-            'pagination' => $userRepository->findPaginationList($request->query->getInt('page', 1), 'user')
+            'pagination' => $userRepository->findPaginationList($request->query->getInt('page', 1), 'user', 1)
         ]);
     }
 
