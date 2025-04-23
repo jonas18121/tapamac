@@ -1,6 +1,6 @@
 {% extends "general/base.html.twig" %}
 
-{% block title 'Créer un utilisateur' %}
+{% block title 'Créer une produit' %}
 
 {% block stylesheets %}
 
@@ -8,10 +8,10 @@
 
 {% block body %}
     <div class="container">
-        <h1>Créer un utilisateur</h1>
+        <h1>Créer un produit</h1>
 
         <div class="container_form">
-            {% include 'backend/pages/user/components/_form.html.twig' with {'formUser': formUser } %}
+            {% include 'backend/pages/product/components/_form.html.twig' with {'formProduct': formProduct } %}
         </div>
     </div>
 {% endblock body %}

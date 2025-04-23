@@ -18,7 +18,7 @@
                     {% endif %}
                 </div> #}
 
-                <div class='one_storage_text'>
+                <div class='one_category_text'>
                     <p class=''>Id : {{ category.id }}</p>
                     <p class=''>Nom : {{ category.name }}</p>
                     <p class=''>Créé par : {{ category.user.lastName }} {{ category.user.firstName }}</p>
@@ -30,10 +30,10 @@
                                     <a href="{{ path('app_backend_category_update', { 'id' : category.id } ) }}" class="btn">Modifier</a>
                                 </span>
                                 <span>
-                                    <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catéroie ?')">
+                                    <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                                        <button class='btn_delete_category'>Supprimer</button>
+                                        <button class='btn_delete'>Supprimer</button>
                                     </form>
                                 </span>
                             {% else %}

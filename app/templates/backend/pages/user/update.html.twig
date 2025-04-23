@@ -1,0 +1,17 @@
+{% extends "general/base.html.twig" %}
+
+{% block title 'Modifier un utilisateur' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier un utilisateur</h1>
+
+        <div class="container_form">
+            {% include 'backend/pages/user/components/_form.html.twig' with {'formUser': formUser } %}
+        </div>
+    </div>
+{% endblock body %}

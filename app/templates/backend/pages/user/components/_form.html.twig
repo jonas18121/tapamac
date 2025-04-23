@@ -1,0 +1,51 @@
+{{ form_start(formUser, { 'attr' : { 'class' : 'form' }} ) }}
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Prénom</label>
+            {{ form_widget(formUser.firstName, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.firstName) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Nom</label>
+            {{ form_widget(formUser.lastName, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.lastName) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">E-mail</label>
+            {{ form_widget(formUser.email, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.email) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Mot de passe</label>
+            {{ form_widget(formUser.password, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.password) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Téléphone</label>
+            {{ form_widget(formUser.phoneNumber, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.phoneNumber) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">L'utilisateur est il vérifier ?</label>
+            {{ form_widget(formUser.isVerified, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.isVerified) }}</small>
+    </div>
+
+    <button type="submit" class="btn">Valider</button>
+{{ form_end(formUser) }}

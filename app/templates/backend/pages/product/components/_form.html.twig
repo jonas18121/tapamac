@@ -1,0 +1,35 @@
+{{ form_start(formProduct, { 'attr' : { 'class' : 'form' }} ) }}
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Titre</label>
+            {{ form_widget(formProduct.title, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formProduct.title) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Description</label>
+            {{ form_widget(formProduct.description, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formProduct.description) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Prix</label>
+            {{ form_widget(formProduct.price, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formProduct.price) }}</small>
+    </div>
+
+    <div class="form-container">
+        <div>
+            <label for="inputTitle" class="form-label">Catégorie</label>
+            {{ form_widget(formProduct.category, {attr : {class : 'form-input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formProduct.category) }}</small>
+    </div>
+
+    <button type="submit" class="btn">Valider</button>
+{{ form_end(formProduct) }}

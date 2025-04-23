@@ -3,38 +3,38 @@
 namespace App\Controller\Backend;
 
 use App\Entity\User;
-use App\Entity\Category;
-use App\Form\CategoryType;
-use App\Manager\CategoryManager;
-use App\Repository\CategoryRepository;
+use App\Entity\Product;
+use App\Form\ProductType;
+use App\Manager\ProductManager;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-final class CategoryController extends AbstractController
+final class ProductController extends AbstractController
 {
     #[Route(
-        'backend/category', 
-        name: 'app_backend_category_list'
+        'backend/product', 
+        name: 'app_backend_product_list'
     )]
     public function list(
-        CategoryRepository $categoryRepository, 
+        ProductRepository $productRepository, 
         Request $request
     ): Response
     {
-        return $this->render('backend/pages/category/list.html.twig', [
-            'pagination' => $categoryRepository->findPaginationList($request->query->getInt('page', 1), 'category')
+        return $this->render('backend/pages/product/list.html.twig', [
+            'pagination' => $productRepository->findPaginationList($request->query->getInt('page', 1), 'product')
         ]);
     }
 
     #[Route(
-        'backend/category/create', 
-        name: 'app_backend_category_create'
+        'backend/product/create', 
+        name: 'app_backend_product_create'
     )]
     public function create(
         Request $request,
-        CategoryManager $categoryManager
+        ProductManager $productManager
     ): Response
     {
         /** @var User|null */
@@ -44,37 +44,37 @@ final class CategoryController extends AbstractController
             return $this->redirectToRoute('app_home_page');
         }
 
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryManager->create($category, $user);
+            $productManager->create($product, $user);
 
             // add flash
             $this->addFlash(
                 'success',
-                'La catégorie a bien été créée'
+                'Le produit a bien été créée'
             );
 
             // Redirection
-            return $this->redirectToRoute('app_backend_category_list');
+            return $this->redirectToRoute('app_backend_product_list');
         }
 
-        return $this->render('backend/pages/category/create.html.twig', [
-            'formCategory' => $form->createView(),
+        return $this->render('backend/pages/product/create.html.twig', [
+            'formProduct' => $form->createView(),
         ]);
     }
 
     #[Route(
-        'backend/category/delete/{id}', 
-        name: 'app_backend_category_delete', 
+        'backend/product/delete/{id}', 
+        name: 'app_backend_product_delete', 
         requirements: ["id" => "\d+"],
         methods: ["DELETE"]
     )]
     public function delete(
-        Category $category,
-        CategoryManager $categoryManager,
+        Product $product,
+        ProductManager $productManager,
         Request $request
     ): Response 
     {
@@ -88,32 +88,32 @@ final class CategoryController extends AbstractController
             return $this->redirectToRoute('app_home_page');
         }
 
-        // $this->denyAccessUnlessGranted('delete', $category);
+        // $this->denyAccessUnlessGranted('delete', $product);
 
         if ($this->isCsrfTokenValid('delete', $token)) {
-            $categoryManager->delete($category);
+            $productManager->delete($product);
         }
 
         // add flash
         $this->addFlash(
             'success',
-            'La catégorie a bien été supprimée'
+            'Le produit a bien été supprimée'
         );
 
          // Redirection
-        return $this->redirectToRoute('app_backend_category_list');
+        return $this->redirectToRoute('app_backend_product_list');
     }
 
     #[Route(
-        'backend/category/update/{id}', 
-        name: 'app_backend_category_update', 
+        'backend/product/update/{id}', 
+        name: 'app_backend_product_update', 
         requirements: ["id" => "\d+"],
         methods: ["GET", "PUT"]
     )]
     public function update(
-        Category $category,
+        Product $product,
         Request $request,
-        CategoryManager $categoryManager
+        ProductManager $productManager
     ): Response 
     {
         /** @var User|null */
@@ -126,46 +126,46 @@ final class CategoryController extends AbstractController
         // voter
         // $this->denyAccessUnlessGranted('edit', $storageSpace);
 
-        $form = $this->createForm(CategoryType::class, $category, ['method' => 'PUT']);
+        $form = $this->createForm(ProductType::class, $product, ['method' => 'PUT']);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categoryManager->update($category);
+            $productManager->update($product);
 
             // add flash
             $this->addFlash(
                 'success',
-                'La catégorie a bien été modifié'
+                'Le produit a bien été modifié'
             );
 
             // Redirection
-            return $this->redirectToRoute('app_backend_category_list');
+            return $this->redirectToRoute('app_backend_product_list');
         }
 
-        return $this->render('backend/pages/category/update.html.twig', [
-            'formCategory' => $form->createView(),
+        return $this->render('backend/pages/product/update.html.twig', [
+            'formProduct' => $form->createView(),
         ]);
     }
 
     #[Route(
-        'backend/category/{id}', 
-        name: 'app_backend_category_detail', 
+        'backend/product/{id}', 
+        name: 'app_backend_product_detail', 
         requirements: ["id" => "\d+"],
         methods: ["GET"]
     )]
     public function detail(
-        Category $category
+        Product $product
     ): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_home_page');
         }
 
-        // $this->denyAccessUnlessGranted('show', $category);
+        // $this->denyAccessUnlessGranted('show', $product);
 
-        return $this->render('backend/pages/category/detail.html.twig', [
-            'category' => $category,
+        return $this->render('backend/pages/product/detail.html.twig', [
+            'product' => $product,
         ]);
     }
 }

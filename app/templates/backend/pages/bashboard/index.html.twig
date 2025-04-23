@@ -1,0 +1,19 @@
+{% extends 'general/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+    <section class="bashboard_list">
+        <article class="bashboard_card">
+            <a href="{{ path('app_backend_category_list') }}">Catégories</a>
+        </article>
+
+        <article class="bashboard_card">
+            <a href="{{ path('app_backend_product_list') }}">Produits</a>
+        </article>
+
+        <article class="bashboard_card">
+            <a href="{{ path('app_backend_user_list') }}">Utilisateurs</a>
+        </article>
+    </section>
+{% endblock %}

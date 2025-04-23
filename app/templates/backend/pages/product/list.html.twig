@@ -1,0 +1,59 @@
+{% extends 'general/base.html.twig' %}
+
+{% block title %}Liste de Produits{% endblock %}
+
+{% block body %}
+    <section class="container_list">
+        <p><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
+
+        {% if pagination is defined and pagination is not empty  %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Créé par</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in pagination %}
+                        <tr>
+                            <th scope="row">{{ product.id }}</th>
+                            <td>
+                                <a href="{{ path('app_backend_product_detail', { id: product.id }) }}">
+                                    {{ product.title }}
+                                </a>
+                            </td>
+                            <td>{{ product.user.firstName }} - {{ product.user.lastName }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.category.name }}</td>
+                            <td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
+                            <td>
+                                <a href="{{ path('app_backend_product_update', { id: product.id }) }}">Modifier</a>
+
+                                <form method="POST" action="{{ path('app_backend_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                    <button class='btn_delete'>Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun produit n'est créée</p>
+        {% endif %}
+    </section>
+
+    {% if pagination is defined and pagination is not empty %}
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endif %}
+{% endblock %}

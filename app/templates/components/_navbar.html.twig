@@ -28,6 +28,10 @@
                         </ul>
                     </li> #}
                     {# <li><a href="{{ path('user_one', { 'id' : app.user.id }) }}"> Mon compte</a></li>#}
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('app_backend_dashboard') }}">Tableau de bord admin</a></li>
+                    {% endif %}
                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li> 
                 {% else %}
                     <li><a href="{{ path('app_register') }}">Inscription</a></li>
