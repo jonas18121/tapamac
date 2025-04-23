@@ -3,18 +3,26 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\Traits\PaginationTrait;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    use PaginationTrait;
+
+    public function __construct(
+        ManagerRegistry $registry,
+        private PaginatorInterface $paginationInterface
+    )
     {
         parent::__construct($registry, User::class);
     }
@@ -57,4 +65,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // public function findListUsers(int $page): ?SlidingPagination
+    // {
+    //     /** @var array<int, User> */
+    //     $data = $this->createQueryBuilder('u')
+    //         ->select('u')
+    //         ->getQuery()
+    //         ->getResult();
+
+    //     /** @var SlidingPagination */
+    //     $pagination = $this->paginationInterface->paginate($data, $page, 10);
+
+    //     if ($pagination instanceof SlidingPagination) {
+    //         return $pagination;
+    //     }
+
+    //     return null;
+    // }
 }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Traits\PaginationTrait;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -13,7 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-    
+    use PaginationTrait;
     
     public function __construct(
         ManagerRegistry $registry, 
@@ -48,21 +49,21 @@ class CategoryRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findListCategories(int $page): ?SlidingPagination
-    {
-        /** @var array<int, Category> */
-        $data = $this->createQueryBuilder('c')
-            ->select('c')
-            ->getQuery()
-            ->getResult();
+    // public function findListCategories(int $page): ?SlidingPagination
+    // {
+    //     /** @var array<int, Category> */
+    //     $data = $this->createQueryBuilder('c')
+    //         ->select('c')
+    //         ->getQuery()
+    //         ->getResult();
 
-        /** @var SlidingPagination */
-        $pagination = $this->paginationInterface->paginate($data, $page, 10);
+    //     /** @var SlidingPagination */
+    //     $pagination = $this->paginationInterface->paginate($data, $page, 10);
 
-        if ($pagination instanceof SlidingPagination) {
-            return $pagination;
-        }
+    //     if ($pagination instanceof SlidingPagination) {
+    //         return $pagination;
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 }

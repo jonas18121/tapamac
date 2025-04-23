@@ -1,9 +1,9 @@
 {% extends 'general/base.html.twig' %}
 
-{% block title %}Liste de categorie{% endblock %}
+{% block title %}Liste de categories{% endblock %}
 
 {% block body %}
-    <section class="get_list_category">
+    <section class="container_list">
         <p><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
 
         {% if pagination is defined and pagination is not empty  %}
@@ -27,10 +27,10 @@
                             <td>
                                 <a href="{{ path('app_backend_category_update', { id: category.id }) }}">Modifier</a>
 
-                                <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette catéroie ?')">
+                                <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                                    <button class='btn_delete_category'>Supprimer</button>
+                                    <button class='btn_delete'>Supprimer</button>
                                 </form>
                             </td>
                         </tr>

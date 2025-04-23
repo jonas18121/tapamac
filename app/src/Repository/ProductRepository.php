@@ -3,15 +3,23 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Traits\PaginationTrait;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Product>
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    use PaginationTrait;
+    
+    public function __construct(
+        ManagerRegistry $registry,
+        private PaginatorInterface $paginationInterface
+    )
     {
         parent::__construct($registry, Product::class);
     }
@@ -40,4 +48,22 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // public function findListProducts(int $page): ?SlidingPagination
+    // {
+    //     /** @var array<int, Product> */
+    //     $data = $this->createQueryBuilder('p')
+    //         ->select('p')
+    //         ->getQuery()
+    //         ->getResult();
+
+    //     /** @var SlidingPagination */
+    //     $pagination = $this->paginationInterface->paginate($data, $page, 10);
+
+    //     if ($pagination instanceof SlidingPagination) {
+    //         return $pagination;
+    //     }
+
+    //     return null;
+    // }
 }

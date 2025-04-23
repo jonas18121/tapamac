@@ -15,7 +15,6 @@ namespace App\Manager;
 
 use App\Entity\Category;
 use App\Entity\User;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Category - Manager.
@@ -33,6 +32,8 @@ class CategoryManager extends BaseManager
 
     public function update(Category $category): Category
     {
+        $category->setUpdatedAt(new \DateTimeImmutable());
+
         return $this->save($category);
     }
 
