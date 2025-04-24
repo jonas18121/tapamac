@@ -1,20 +1,48 @@
 {% extends 'general/base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Liste de Produits{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section class="container_list">
+        {% if app.user %}
+            <p><a href="{{ path('app_product_create' ) }}">Ajouter un produit</a></p>
+        {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {% if pagination is defined and pagination is not empty  %}
+            {% for product in pagination %}
+                <article class="product_card">
+                    <h3>
+                        <a href="{{ path('app_backend_product_detail', { id: product.id }) }}">
+                            {{ product.title }}
+                        </a>
+                    </h3>
+                    <p>{{ product.user.firstName }} - {{ product.user.lastName }}</td>
+                    <p>{{ product.price }}</p>
+                    <p>{{ product.category.name }}</p>
+                    <p>{{ product.createdAt | date('d/m/Y H:i') }}</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/app/src/Controller/CategoryController.php</code></li>
-        <li>Your template at <code>/var/www/app/templates/category/index.html.twig</code></li>
-    </ul>
-</div>
+                    {% if app.user and app.user is same as(product.user) %}
+                        <p>
+                            <a href="{{ path('app_product_update', { id: product.id }) }}">Modifier</a>
+
+                            <form method="POST" action="{{ path('app_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                <button class='btn_delete'>Supprimer</button>
+                            </form>
+                        </p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>Aucun produit n'est créée</p>
+        {% endif %}
+    </section>
+
+    {% if pagination is defined and pagination is not empty %}
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endif %}
 {% endblock %}

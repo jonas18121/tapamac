@@ -1,0 +1,34 @@
+{# Représente la base du formulaire de produits #}
+{# Les champs obligatoire #}
+
+<div class="container_form_element">
+    <div>
+        <label for="product_title" class="form_label">Titre</label>
+        {{ form_widget(formProduct.title, {attr : {class : 'form_input' }} ) }}
+    </div>
+    <small class="error_input_small">{{ form_errors(formProduct.title) }}</small>
+</div>
+
+<div class="container_form_element">
+    <div>
+        <label for="product_description" class="form_label">Description</label>
+        {{ form_widget(formProduct.description, {attr : {class : 'form_input' }} ) }}
+    </div>
+    <small class="error_input_small">{{ form_errors(formProduct.description) }}</small>
+</div>
+
+<div class="container_form_element">
+    <div>
+        <label for="product_price" class="form_label">Prix</label>
+        {{ form_widget(formProduct.price, {attr : {class : 'form_input' }} ) }}
+    </div>
+    <small class="error_input_small">{{ form_errors(formProduct.price) }}</small>
+</div>
+
+<div class="container_form_element">
+    <div>
+        <label for="product_category" class="form_label">Catégorie</label>
+        {{ form_widget(formProduct.category, {attr : {class : 'form_input' }} ) }}
+    </div>
+    <small class="error_input_small">{{ form_errors(formProduct.category) }}</small>
+</div>

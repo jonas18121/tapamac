@@ -1,8 +1,8 @@
-{{ form_start(formCategory, { 'attr' : { 'class' : 'form' }} ) }}
-    <div class="form-container">
+{{ form_start(formCategory, { 'attr' : { 'class' : 'form backend category_backend' }} ) }}
+    <div class="container_form">
         <div>
-            <label for="inputTitle" class="form-label">Titre</label>
-            {{ form_widget(formCategory.name, {attr : {class : 'form-input' }} ) }}
+            <label for="category_name" class="form_label">Titre</label>
+            {{ form_widget(formCategory.name, {attr : {class : 'form_input' }} ) }}
         </div>
         <small class="error_input_small">{{ form_errors(formCategory.name) }}</small>
     </div>

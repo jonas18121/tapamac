@@ -11,7 +11,17 @@
         <h1>Créer un produit</h1>
 
         <div class="container_form">
-            {% include 'backend/pages/product/components/_form.html.twig' with {'formProduct': formProduct } %}
+            {% embed 'backend/pages/product/components/_form.html.twig'
+                with { formProduct: formProduct } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Enregistrer le produit
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
         </div>
     </div>
 {% endblock body %}
