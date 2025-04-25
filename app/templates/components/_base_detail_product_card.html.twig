@@ -1,6 +1,6 @@
 {# Représente la base de la page d'un produit #}
 
-<article class='one_product'>
+<article class='detail_product'>
 
     {# <div class='one_product_img'>
         {% if product.images %}
@@ -10,14 +10,14 @@
         {% endif %}
     </div> #}
 
-    <div class='one_product_text'>
+    <div class='detail_product_text'>
         <p class=''>Nom : {{ product.title }}</p>
         <p class=''>Créé par : {{ product.user.lastName }} {{ product.user.firstName }}</p>
 
         {% block surchargeOne %}{% endblock surchargeOne %}
 
         {% if app.user %}
-            <p class="one_product_action">
+            <p class="detail_product_action">
                 {% if product.user.id == app.user.id %}
                     <span>
                         <a href="{{ path('app_backend_product_update', { 'id' : product.id } ) }}" class="btn">Modifier</a>

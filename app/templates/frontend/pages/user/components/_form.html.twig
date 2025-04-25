@@ -18,14 +18,6 @@
             </div>
         #}
 
-        <div class="container_form_element">
-            <div>
-                <label for="user_isVerified" class="form_label">L'utilisateur est il vérifier ?</label>
-                {{ form_widget(formUser.isVerified, {attr : {class : 'form_input' }} ) }}
-            </div>
-            <small class="error_input_small">{{ form_errors(formUser.isVerified) }}</small>
-        </div>
-
         {# Bouton par défaut qui peut être surcharger #}
         {% block formButton %}
             <button type="submit" class="btn">Valider</button>

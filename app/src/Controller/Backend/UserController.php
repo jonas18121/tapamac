@@ -44,7 +44,13 @@ final class UserController extends AbstractController
         }
 
         $userCreate = new User();
-        $form = $this->createForm(UserType::class, $userCreate);
+        $form = $this->createForm(
+            UserType::class, 
+            $userCreate,
+            [
+                'window_user' => 'backend'
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -125,7 +131,14 @@ final class UserController extends AbstractController
         // voter
         // $this->denyAccessUnlessGranted('edit', $storageSpace);
 
-        $form = $this->createForm(UserType::class, $userUpdate, ['method' => 'PUT']);
+        $form = $this->createForm(
+            UserType::class, 
+            $userUpdate, 
+            [
+                'method' => 'PUT',
+                'window_user' => 'backend'
+            ]
+        );
 
         $form->handleRequest($request);
 

@@ -1,0 +1,14 @@
+<section class="section_detail_product">
+    <section class="detail_product">
+        {% embed 'components/_base_detail_product_card.html.twig' 
+            with {'product': product } 
+            only
+        %}
+            {# Surcharge d'autres éléments/propriétés #}
+            {% block surchargeOne %}{% endblock surchargeOne %}
+
+            {# Surcharge d'autres éléments/propriétés #}
+            {% block surchargeTwo %}{% endblock surchargeTwo %}
+        {% endembed %}
+    </section>
+</section>

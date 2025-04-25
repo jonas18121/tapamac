@@ -1,0 +1,34 @@
+<section class="section_detail_user">
+    <section class="detail_user">
+        {% embed 'components/_base_detail_user_card.html.twig' 
+            with {'user': user } 
+            only
+        %}
+            {# Surcharge le bloc #}
+            {% block surchargeFive %}
+                {% if app.user %}
+                    <p class="detail_user_action">
+                        {% if user.id == app.user.id %}
+                            <span>
+                                <a href="{{ path('app_user_update', { 'id' : user.id } ) }}" class="btn">Modifier</a>
+                            </span>
+                            <span>
+                                <form method="POST" action="{{ path('app_user_delete', { 'id' : user.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                    <button class='btn_delete'>Supprimer</button>
+                                </form>
+                            </span>
+                        {% else %}
+                        {% endif %}
+                    </p>
+                {% endif %}
+            {% endblock surchargeFive %}
+
+            {# Surcharge le bloc #}
+            {% block surchargeSeven %}
+                On est dans le frontend
+            {% endblock surchargeSeven %}
+        {% endembed %}
+    </section>
+</section>
