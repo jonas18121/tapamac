@@ -11,7 +11,17 @@
         <h1>Modifier un utilisateur</h1>
 
         <div class="container_form">
-            {% include 'backend/pages/user/components/_form.html.twig' with {'formUser': formUser } %}
+            {% embed 'backend/pages/user/components/_form.html.twig'
+                with { formUser: formUser } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Modifier cet utilisateur
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
         </div>
     </div>
 {% endblock body %}
