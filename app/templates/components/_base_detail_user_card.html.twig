@@ -1,0 +1,32 @@
+<article class='detail_user'>
+    {# 
+        Des blocs de surcharge sont présent pour ajouter ou remplacer des éléments,
+        depuis les fichiers qui incluront ce fichier
+    #}
+
+    {% block surchargeOne %}
+    {# <div class='detail_user_img'>
+        {% if user.images %}
+            <img class="" src= "{{ asset('/uploads/images/' ~ user.images) }}" alt="" > 
+        {% else %}
+            <img class="" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
+        {% endif %}
+    </div> #}
+    {% endblock surchargeOne %}
+
+    {% block surchargeTwo %}{% endblock surchargeTwo %}
+
+    <div class='detail_user_text'>
+        {% block surchargeThree %}
+            {% block surchargeFour %}
+                <p class=''>Id : {{ user.id }}</p>
+                <p class=''>{{ user.firstName }} - {{ user.lastName }}</p>
+            {% endblock surchargeFour %}
+
+            {% block surchargeFive %}{% endblock surchargeFive %}
+        {% endblock surchargeThree %}
+
+        {% block surchargeSix %}{% endblock surchargeSix %}
+    </div>
+    {% block surchargeSeven %}{% endblock surchargeSeven %}
+</article>

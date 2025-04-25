@@ -6,42 +6,6 @@
 <div class="container">
     <h1>{{ user.firstName }} - {{ user.lastName }}</h1>
 
-    <section class="section_one_user">
-        <section class="one_user">
-            <article class='one_user'>
-
-                {# <div class='one_user_img'>
-                    {% if user.images %}
-                        <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ user.images) }}" alt="" > 
-                    {% else %}
-                        <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
-                    {% endif %}
-                </div> #}
-
-                <div class='one_user_text'>
-                    <p class=''>Id : {{ user.id }}</p>
-                    <p class=''>{{ user.firstName }} - {{ user.lastName }}</p>
-
-                    {% if app.user %}
-                        <p class="one_user_action">
-                            {# {% if user.id == app.user.id %} #}
-                                <span>
-                                    <a href="{{ path('app_backend_user_update', { 'id' : user.id } ) }}" class="btn">Modifier</a>
-                                </span>
-                                <span>
-                                    <form method="POST" action="{{ path('app_backend_user_delete', { 'id' : user.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                                        <button class='btn_delete'>Supprimer</button>
-                                    </form>
-                                </span>
-                            {# {% else %}
-                            {% endif %} #}
-                        </p>
-                    {% endif %}
-                </div>
-            </article>
-        </section>
-    </section>
+    {% include 'backend/pages/user/components/_detail_user_card.html.twig' with {'user': user } %}
 </div>
 {% endblock %}
