@@ -10,7 +10,7 @@
                     <p class="detail_user_action">
                         {% if user.id == app.user.id %}
                             <span>
-                                <a href="{{ path('app_user_update', { 'id' : user.id } ) }}" class="btn">Modifier</a>
+                                <a href="{{ path('app_user_update') }}" class="btn">Modifier</a>
                             </span>
                             <span>
                                 <form method="POST" action="{{ path('app_user_delete', { 'id' : user.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">

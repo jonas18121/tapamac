@@ -1,0 +1,78 @@
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+nav{
+  font-size: 5rem;
+  margin: 0;
+  text-align: center;
+  /* background-color: darkgoldenrod; */
+}
+
+nav form button {
+  color: var(--black);
+  background-color: var(--grey-main);
+  width: 88%;
+  font-size: 2.5rem;
+}
+
+nav li, li {
+  list-style-type: none;
+}
+
+nav li:hover .sous_menu {
+  display: inline-block;
+  position: absolute;
+  top: 3rem;
+  left: -17rem;
+  background-color: var(--grey-main);
+  width: 260%;
+}
+
+/* #menuToggle {
+  position: initial;
+} */
+
+#menuToggle span {
+  display: none;
+  /* position: initial; */
+}
+
+#menuToggle li:hover, #menuToggle a:hover
+{
+    color: var(--black);
+}
+
+#menuToggle input {
+  display: none;
+}
+
+#menu {
+  margin: 0;
+  padding: 1vw 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  background-color: var(--grey-main);
+}
+
+.menu_li_dashboard {
+  position: relative;
+
+}
+
+#menu li {
+  font-size: 3rem;
+}
+
+#menu li a {
+  color: var(--black);
+  font-size: 2vw;
+}
+
+.sous_menu {
+  display: none;
+}
+
+

@@ -32,12 +32,9 @@ final class UserAccountController extends AbstractController
         /** @var string|null */
         $token = $request->get('_token');
 
-        if (!$user || null === $token) {
+        if (!$user || null === $token && $user !== $userDelete) {
             return $this->redirectToRoute('app_home_page');
         }
-
-        // Déconnexion de l'utilisateur
-        $security->logout(false);
 
         // $this->denyAccessUnlessGranted('delete', $user);
 
@@ -45,6 +42,9 @@ final class UserAccountController extends AbstractController
         if ($this->isCsrfTokenValid('delete', $token)) {
             $userManager->delete($userDelete);
         }
+
+        // Déconnexion de l'utilisateur
+        $security->logout(false);
 
         // add flash
         $this->addFlash(
@@ -57,13 +57,11 @@ final class UserAccountController extends AbstractController
     }
 
     #[Route(
-        'user/update/{id}', 
+        'user/update', 
         name: 'app_user_update', 
-        requirements: ["id" => "\d+"],
         methods: ["GET", "PUT"]
     )]
     public function update(
-        User $userUpdate,
         Request $request,
         UserManager $userManager
     ): Response 
@@ -76,14 +74,14 @@ final class UserAccountController extends AbstractController
         }
 
         // voter
-        // $this->denyAccessUnlessGranted('edit', $storageSpace);
+        // $this->denyAccessUnlessGranted('edit', $user);
 
-        $form = $this->createForm(UserType::class, $userUpdate, ['method' => 'PUT']);
+        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userManager->update($userUpdate);
+            $userManager->update($user);
 
             // add flash
             $this->addFlash(
@@ -101,9 +99,8 @@ final class UserAccountController extends AbstractController
     }
 
     #[Route(
-        'user/{id}', 
+        'user', 
         name: 'app_user_detail', 
-        requirements: ["id" => "\d+"],
         methods: ["GET"]
     )]
     public function detail(
