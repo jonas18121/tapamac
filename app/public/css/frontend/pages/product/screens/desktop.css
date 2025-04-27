@@ -1,0 +1,28 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.container_list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.product_card {
+    padding: 2rem;
+    width: 35rem;
+    border: 1px solid var(--grey);
+    border-radius: 30px;
+    background-color: var(--grey);
+    margin: 1rem;
+}
+
+.product_card h3,
+.product_card p,
+.product_card form
+{
+    margin: 1rem;
+}
