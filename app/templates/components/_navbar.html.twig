@@ -10,24 +10,33 @@
 
             <ul id="menu">
                 <li><a href='{{ path('app_home_page') }}'>Accueil</a></li>
-                {# <li><a href="{{ path('storage_space_all' ) }}">Espace de stockage</a></li> #}
+
+                {# <li class="menu_li_dashboard">
+                    Tableau de bord
+                    <ul class="sous_menu">
+                        <li><a href="#">Mes paiements</a></li>
+                        <li><a href="#">Mes annonces d'espace de stockage</a></li>
+                    </ul>
+                </li> #}
+                
 
                 {% if app.user %}
+                    <li><a href="{{ path('app_product_list') }}">Consulter les produits</a></li>
+                    <li><a href="{{ path('app_user_detail') }}">Mon compte</a></li>
                     {# <li><a href="{{ path('storage_space_add' ) }}" >Ajouter un espace de stockage</a></li> #}
                     {# <li class="menu_li_dashboard">
                         Tableau de bord
                         <ul class="sous_menu">
-                            <li >
+                            {# <li >
                                 <form id="manage-billing-form" method='POST'>
                                     <input type='hidden' id='session_id' value={{ app.request.get('stripeSessionId') }}>
                                     <button type='submit'>Gérer mon abonnement actuel</button>
                                 </form>
-                            </li>
-                            <li><a href="{{ path('booking_for_user') }}">Mes paiements</a></li>
-                            <li><a href="{{ path('storage_space_for_user') }}">Mes annonces d'espace de stockage</a></li>
+                            </li> # }
+                            <li><a href="#">Mes paiements</a></li>
+                            <li><a href="#">Mes annonces d'espace de stockage</a></li>
                         </ul>
                     </li> #}
-                    {# <li><a href="{{ path('user_one', { 'id' : app.user.id }) }}"> Mon compte</a></li>#}
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('app_backend_dashboard') }}">Tableau de bord admin</a></li>

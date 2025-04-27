@@ -1,0 +1,11 @@
+/* **************** CSS pour mobile *********************** */
+/* CSS mobile max 768px */
+
+@media only screen and (max-width: 768px)  
+{      
+    /* ////////////////// MAIN //////////////////// */
+
+    .container {
+        padding: 4rem 1rem 0;
+    }
+}
