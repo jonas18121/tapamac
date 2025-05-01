@@ -1,0 +1,63 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.container_list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.product_card {
+    padding: 2rem;
+    width: 35rem;
+    border: 1px solid var(--grey);
+    border-radius: 30px;
+    background-color: var(--grey);
+    margin: 1rem auto; /* auto pour que les margins de coté s'adapte à l'écran */ 
+}
+
+.container .title,
+.container .add,
+.product_card h3,
+.product_card p,
+.product_card form
+{
+    margin: 1rem;
+}
+
+.btn_action {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    padding: 1.6rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button.btn_update {
+    background-color: var(--yellow);
+}
+
+.button.form_delete {
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    background-color: var(--red);
+}
+
+.button .btn_delete {
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+}

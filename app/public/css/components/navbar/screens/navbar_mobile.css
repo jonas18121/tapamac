@@ -1,0 +1,70 @@
+/* **************** CSS pour mobile *********************** */
+/* CSS max 768px */
+
+@import url('../../../general/variables.css');
+
+@media only screen and (max-width: 768px)  
+{      
+    nav form button {
+        font-size: 2.2rem;
+    }
+
+    nav li:hover .sous_menu {
+        top: 28rem;
+        left: 0rem;
+        width: 100%;
+    }
+      
+    #menuToggle span
+    {
+        width: 5rem;
+        height: 0.7rem;
+        
+        transform-origin: 2rem 1.2rem;
+    }
+
+    #menuToggle span:nth-last-child(2) {
+        transform-origin: 0.5rem -1.3rem;
+    }
+
+    /* 
+    * Transform all the slices of hamburger
+    * into a crossmark.
+    *
+    * span top
+    */
+    #menuToggle input:checked ~ span {
+        transform: rotate(45deg) translate(-2px, -1px);
+    }
+      
+    /*
+     * Ohyeah and the last one should go the other direction
+     *
+     * span bottom
+     */
+     #menuToggle input:checked ~ span:nth-last-child(2) {
+        transform: rotate(-45deg) translate(0, -1px);
+    }
+      
+    /*
+     * Make this absolute positioned
+     * at the top left of the screen
+     */
+    #menu {
+        display: block;
+
+        position: absolute;
+        width: 119%;
+        margin: -10rem 0 0 -5rem;
+        padding: 5.5rem .5rem 5.5rem 2rem;
+    }
+      
+    #menu li {
+        /* margin: 1rem 0; */
+        font-size: 4.2rem;
+    }
+      
+    #menu li a {
+        font-size: 2.5rem;
+    }
+}
