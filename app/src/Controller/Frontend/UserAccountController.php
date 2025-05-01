@@ -93,7 +93,7 @@ final class UserAccountController extends AbstractController
             return $this->redirectToRoute('app_user_detail', ['id' => $user->getId()]);
         }
 
-        return $this->render('frontend/user/update.html.twig', [
+        return $this->render('frontend/user/user_update.html.twig', [
             'formUser' => $form->createView(),
         ]);
     }
@@ -115,7 +115,7 @@ final class UserAccountController extends AbstractController
 
         // $this->denyAccessUnlessGranted('show', $user);
 
-        return $this->render('frontend/user/detail.html.twig', [
+        return $this->render('frontend/user/user_detail.html.twig', [
             'user' => $user,
         ]);
     }
