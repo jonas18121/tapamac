@@ -4,15 +4,15 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="css/frontend/pages/product/index.css" rel="stylesheet" />
+    <link href="/css/frontend/product/list/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
     <section class="container">
-        <h1>Liste de produits</h1>
+        <h1 class='title'>Liste de produits</h1>
 
         {% if app.user %}
-            <p><a href="{{ path('app_product_create' ) }}">Ajouter un produit</a></p>
+            <p class='add'><a href="{{ path('app_product_create' ) }}">Ajouter un produit</a></p>
         {% endif %}
 
         <section class="container_list">
@@ -20,7 +20,7 @@
                 {% for product in pagination %}
                     <article class="product_card">
                         <h3>
-                            <a href="{{ path('app_backend_product_detail', { id: product.id }) }}">
+                            <a href="{{ path('app_product_detail', { id: product.id }) }}">
                                 {{ product.title }}
                             </a>
                         </h3>
@@ -30,15 +30,27 @@
                         <p>{{ product.createdAt | date('d/m/Y H:i') }}</p>
 
                         {% if app.user and app.user is same as(product.user) %}
-                            <p>
-                                <a href="{{ path('app_product_update', { id: product.id }) }}">Modifier</a>
+                            <div class='btn_action'>
+                                <p>
+                                    <a 
+                                        class='button btn_update'
+                                        href="{{ path('app_product_update', { id: product.id }) }}"
+                                    >
+                                        Modifier
+                                    </a>
+                                <p>
 
-                                <form method="POST" action="{{ path('app_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
+                                <form 
+                                    method="POST" 
+                                    action="{{ path('app_product_delete', { 'id' : product.id }) }}" 
+                                    class="middle button form_delete" 
+                                    onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')"
+                                >
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
                                     <button class='btn_delete'>Supprimer</button>
                                 </form>
-                            </p>
+                            </div>
                         {% endif %}
                     </article>
                 {% endfor %}

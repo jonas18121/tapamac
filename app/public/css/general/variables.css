@@ -1,9 +1,27 @@
 :root {
-    --grey: rgba(233, 233, 240, 0.836);
+    --grey: rgba(177, 177, 184, 0.836);
+
+    --grey-input: rgba(177, 177, 184, 0.384);
 
     --white: #fff;
     --white-clear: rgba(255, 255, 255, 0.2);
 
     --black: #000;
     --black-clear: rgba(22, 21, 21, 0.4);
+
+    --red: rgb(126, 42, 42);
+
+    --green: #198a60;
+
+    --purple: rgba(107, 13, 110, 0.733);
+
+    --yellow: rgb(190, 179, 32);
+
+    --add-flash-success: rgb(8, 153, 15);
+
+    --add-flash-error: rgb(153, 8, 8);
+
+    --add-flash-warning: rgb(153, 138, 8);
+
+    --add-flash-notice: rgb(75, 74, 74);
 }

@@ -1,10 +1,10 @@
 @import url('./variables.css');
 
-@import url('./screens/desktop.css');
-@import url('./screens/tablet.css');
-@import url('./screens/mobile.css');
+@import url('./screens/general_desktop.css');
+@import url('./screens/general_tablet.css');
+@import url('./screens/general_mobile.css');
 
-/* GLOBAL */
+/* ====== GLOBAL ====== */
 
 *, ::before, ::after {
     box-sizing: border-box;
@@ -38,4 +38,26 @@ a{
 
 table{
     width: 100%;
+}
+
+/* ====== Add Flash ====== */
+
+.bm_messages_success {
+    background-color: var(--add-flash-success);
+    color: var(--white);
+}
+
+.bm_messages_error {
+    background-color: var(--add-flash-error);
+    color: var(--white);
+}
+
+.bm_messages_warning {
+    background-color: var(--add-flash-warning);
+    color: var(--white);
+}
+
+.bm_messages_notice {
+    background-color: var(--add-flash-notice);
+    color: var(--white);
 }

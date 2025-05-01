@@ -1,6 +1,6 @@
 {% extends "general/base.html.twig" %}
 
-{% block title 'Créer une produit' %}
+{% block title 'Modifier mon compte' %}
 
 {% block stylesheets %}
 
@@ -8,17 +8,17 @@
 
 {% block body %}
     <div class="container">
-        <h1>Créer un produit</h1>
+        <h1>Modifier mon compte</h1>
 
         <div class="container_form">
-            {% embed 'frontend/pages/product/components/_form.html.twig'
-                with { formProduct: formProduct } 
+            {% embed 'frontend/user/components/_form.html.twig'
+                with { formUser: formUser } 
                 only
             %}
                 {# Surcharge du bouton de soumission #}
                 {% block formButton %}
                     <button type="submit" class="btn btn_success">
-                        Créer un produit
+                        Modifier
                     </button>
                 {% endblock formButton %}
             {% endembed %}
