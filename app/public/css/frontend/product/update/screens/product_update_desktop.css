@@ -1,0 +1,55 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+/* 
+.container_form {
+    width: 80rem;
+    margin: auto;
+    padding: 4rem 8rem 0;
+    color: var(--white);
+}
+
+.container_form_block {
+    padding: 2rem 1rem;
+    background-color: var(--purple);
+    border-radius: 10px;
+}
+
+.container_form_block .container_form_element {
+    margin: 2rem 1rem;
+}
+
+.container_form_block .container_form_element .form_label
+{
+    display: block;
+    margin: 1rem;
+}
+
+.container_form_block .container_form_element .form_input
+{
+    width: 100%;
+    padding: 2rem;
+    border: none;
+    background-color: var(--grey-input);
+    border-radius: 10px;
+    color: var(--white);
+}
+
+.button {
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    padding: 1.6rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.button.btn_update {
+    background-color: var(--yellow);
+    color: var(--black);
+} */

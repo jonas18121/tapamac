@@ -1,0 +1,29 @@
+{% extends "general/base.html.twig" %}
+
+{% block title 'Créer une produit' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/frontend/product/components/form/form.css" rel="stylesheet" />
+    <link href="/css/frontend/product/create/index.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Créer un produit</h1>
+
+        <div class="container_form">
+            {% embed 'frontend/product/components/_form.html.twig'
+                with { formProduct: formProduct } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Créer un produit
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock body %}

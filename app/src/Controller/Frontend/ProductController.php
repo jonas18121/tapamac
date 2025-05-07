@@ -19,12 +19,12 @@ final class ProductController extends AbstractController
         name: 'app_product_list'
     )]
     public function list(
-        ProductRepository $productRepository, 
+        ProductManager $productManager,
         Request $request
     ): Response
     {
-        return $this->render('frontend/pages/product/list.html.twig', [
-            'pagination' => $productRepository->findPaginationList($request->query->getInt('page', 1), 'product', 15)
+        return $this->render('frontend/product/product_list.html.twig', [
+            'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
         ]);
     }
 
@@ -61,7 +61,7 @@ final class ProductController extends AbstractController
             return $this->redirectToRoute('app_product_list');
         }
 
-        return $this->render('frontend/pages/product/create.html.twig', [
+        return $this->render('frontend/product/product_create.html.twig', [
             'formProduct' => $form->createView(),
         ]);
     }
@@ -143,7 +143,7 @@ final class ProductController extends AbstractController
             return $this->redirectToRoute('app_product_list');
         }
 
-        return $this->render('frontend/pages/product/update.html.twig', [
+        return $this->render('frontend/product/product_update.html.twig', [
             'formProduct' => $form->createView(),
         ]);
     }
@@ -164,7 +164,7 @@ final class ProductController extends AbstractController
 
         // $this->denyAccessUnlessGranted('show', $product);
 
-        return $this->render('frontend/pages/product/detail.html.twig', [
+        return $this->render('frontend/product/product_detail.html.twig', [
             'product' => $product,
         ]);
     }

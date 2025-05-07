@@ -1,0 +1,27 @@
+{% extends "general/base.html.twig" %}
+
+{% block title 'Modifier mon compte' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier mon compte</h1>
+
+        <div class="container_form">
+            {% embed 'frontend/user/components/_form.html.twig'
+                with { formUser: formUser } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Modifier
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock body %}
