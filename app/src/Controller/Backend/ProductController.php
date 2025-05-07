@@ -158,7 +158,10 @@ final class ProductController extends AbstractController
         Product $product
     ): Response
     {
-        if (!$this->getUser()) {
+        /** @var User|null */
+        $user = $this->getUser();
+
+        if (!$user) {
             return $this->redirectToRoute('app_home_page');
         }
 
