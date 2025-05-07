@@ -19,12 +19,12 @@ final class ProductController extends AbstractController
         name: 'app_product_list'
     )]
     public function list(
-        ProductRepository $productRepository, 
+        ProductManager $productManager,
         Request $request
     ): Response
     {
         return $this->render('frontend/product/product_list.html.twig', [
-            'pagination' => $productRepository->findPaginationList($request->query->getInt('page', 1), 'product', 15)
+            'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
         ]);
     }
 
