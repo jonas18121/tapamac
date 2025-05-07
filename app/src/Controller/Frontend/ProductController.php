@@ -158,12 +158,6 @@ final class ProductController extends AbstractController
         Product $product
     ): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_home_page');
-        }
-
-        // $this->denyAccessUnlessGranted('show', $product);
-
         return $this->render('frontend/product/product_detail.html.twig', [
             'product' => $product,
         ]);
