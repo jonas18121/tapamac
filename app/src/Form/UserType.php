@@ -77,7 +77,7 @@ class UserType extends AbstractType
                 }
             };
 
-            // Ajoute le genre dans formUpdateGender après le chargement de la page, si un gender à été choisit,
+            // Ajoute la liste de situation dans le champ select situation après le chargement de la page, si un gender à été choisit,
             // afin de lister les options dans le selecteur situation, 
             // pour que symfony puisse accepter le choix lors de la validation
             $builder->get('gender')->addEventListener(
@@ -91,7 +91,7 @@ class UserType extends AbstractType
                 }
             );
 
-            // Ajoute le genre dans formUpdateGender après submit,
+            // Ajoute la liste de situation dans le champ select situation après le clique sur submit,
             // afin de lister les options dans le selecteur situation, 
             // pour que symfony puisse accepter le choix lors de la validation
             $builder->get('gender')->addEventListener(
