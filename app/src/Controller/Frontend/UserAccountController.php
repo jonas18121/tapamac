@@ -9,6 +9,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class UserAccountController extends AbstractController
@@ -76,7 +77,14 @@ final class UserAccountController extends AbstractController
         // voter
         // $this->denyAccessUnlessGranted('edit', $user);
 
-        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
+        $form = $this->createForm(
+            UserType::class, 
+            $user, 
+            [
+                'method' => 'PUT',
+                'window_user' => 'frontend'
+            ]
+        );
 
         $form->handleRequest($request);
 
@@ -118,5 +126,48 @@ final class UserAccountController extends AbstractController
         return $this->render('frontend/user/user_detail.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    /* ======================== Partie AJAX ======================== */ 
+
+    #[Route(
+        'user/ajax/get/situations', 
+        name: 'app_user_ajax_get_situations'
+    )]
+    public function ajaxGetSituations(
+        Request $request
+    ): JsonResponse
+    {
+        $gender = $request->query->get('gender');
+
+        $situations = [
+            'non_selection' => [
+                'Choisir un genre avant de choisir une situation' => '',
+            ],
+
+            'homme' => [
+                'Célibataire' => 'celibataire',
+                'Concubinage' => 'concubinage',
+                'pacsé' => 'pacse',
+                'Marié' => 'marie',
+            ],
+
+            'femme' => [
+                'Mariée' => 'marie',
+                'pacsée' => 'pacse',
+                'Concubinage' => 'concubinage',
+                'Célibataire' => 'celibataire',
+            ],
+
+            'non_binaire' => [
+                'Polyamour' => 'polyamour',
+                'Célibataire' => 'celibataire',
+                'Concubinage' => 'concubinage',
+                'pacsé' => 'pacse',
+                'Marié' => 'marie',
+            ],
+        ];
+
+        return new JsonResponse($situations[$gender] ?? []);
     }
 }

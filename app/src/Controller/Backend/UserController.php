@@ -48,7 +48,8 @@ final class UserController extends AbstractController
             UserType::class, 
             $userCreate,
             [
-                'window_user' => 'backend'
+                'window_user' => 'backend',
+                'use_password' => 'use_password'
             ]
         );
         $form->handleRequest($request);
@@ -136,7 +137,7 @@ final class UserController extends AbstractController
             $userUpdate, 
             [
                 'method' => 'PUT',
-                'window_user' => 'backend'
+                'window_user' => 'backend',
             ]
         );
 

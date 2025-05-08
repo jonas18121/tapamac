@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column(length: 255)]
+    private ?string $gender = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $situation = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -247,6 +253,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getSituation(): ?string
+    {
+        return $this->situation;
+    }
+
+    public function setSituation(string $situation): static
+    {
+        $this->situation = $situation;
 
         return $this;
     }

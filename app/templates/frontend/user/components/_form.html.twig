@@ -11,12 +11,28 @@
 
             <div class="container_form_element">
                 <div>
-                    <label for="product_new_props" class="form_label">new_props</label>
-                    {{ form_widget(formProduct.new_props, {attr : {class : 'form_input' }} ) }}
+                    <label for="user_new_props" class="form_label">new_props</label>
+                    {{ form_widget(formUser.new_props, {attr : {class : 'form_input' }} ) }}
                 </div>
-                <small class="error_input_small">{{ form_errors(formProduct.new_props) }}</small>
+                <small class="error_input_small">{{ form_errors(formUser.new_props) }}</small>
             </div>
         #}
+
+        <div class="container_form_element">
+            <div>
+                <label for="user_gender" class="form_label">Genre</label>
+                {{ form_widget(formUser.gender, {attr : {class : 'form_input' }} ) }}
+            </div>
+            <small class="error_input_small">{{ form_errors(formUser.gender) }}</small>
+        </div>
+
+        <div class="container_form_element">
+            <div id="container_user_situation">
+                <label for="user_situation" class="form_label">Situation familiale</label>
+                {{ form_widget(formUser.situation, {attr : {class : 'form_input' }} ) }}
+            </div>
+            <small class="error_input_small">{{ form_errors(formUser.situation) }}</small>
+        </div>
 
         {# Bouton par défaut qui peut être surcharger #}
         {% block formButton %}
