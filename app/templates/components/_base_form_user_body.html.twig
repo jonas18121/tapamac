@@ -25,13 +25,15 @@
     <small class="error_input_small">{{ form_errors(formUser.email) }}</small>
 </div>
 
-<div class="container_form_element">
-    <div>
-        <label for="user_password" class="form_label">Mot de passe</label>
-        {{ form_widget(formUser.password, {attr : {class : 'form_input' }} ) }}
+{% if formUser.password is defined %}
+    <div class="container_form_element">
+        <div>
+            <label for="user_password" class="form_label">Mot de passe</label>
+            {{ form_widget(formUser.password, {attr : {class : 'form_input' }} ) }}
+        </div>
+        <small class="error_input_small">{{ form_errors(formUser.password) }}</small>
     </div>
-    <small class="error_input_small">{{ form_errors(formUser.password) }}</small>
-</div>
+{% endif %}
 
 <div class="container_form_element">
     <div>

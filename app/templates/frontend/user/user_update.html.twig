@@ -3,7 +3,12 @@
 {% block title 'Modifier mon compte' %}
 
 {% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="/js/frontend/user/user.js"></script>
 {% endblock %}
 
 {% block body %}
