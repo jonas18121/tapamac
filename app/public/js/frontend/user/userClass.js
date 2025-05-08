@@ -1,4 +1,5 @@
 "use strict";
+
 export class UserClass {
     
     constructor() {
