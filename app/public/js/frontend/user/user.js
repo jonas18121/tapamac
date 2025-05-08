@@ -1,3 +1,5 @@
+"use strict";
+
 import { UserClass } from './userClass.js';
 
 const userClass = new UserClass();
