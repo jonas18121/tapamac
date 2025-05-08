@@ -12,6 +12,7 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Champs de base
         $builder
             ->add('email')
             ->add('password')
@@ -20,6 +21,16 @@ class UserType extends AbstractType
             ->add('phoneNumber')
         ;
 
+        // Champs spécifique à la partie Frontend
+        if (
+            array_key_exists('window_user',$options) 
+            && isset($options['window_user']) 
+            && 'frontend' === $options['window_user']
+        ) {
+            $builder->add('isVerified', CheckboxType::class);
+        }
+
+        // Champs spécifique à la partie Backend
         if (
             array_key_exists('window_user',$options) 
             && isset($options['window_user']) 

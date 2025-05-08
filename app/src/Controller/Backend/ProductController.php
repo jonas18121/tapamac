@@ -23,7 +23,7 @@ final class ProductController extends AbstractController
         Request $request
     ): Response
     {
-        return $this->render('backend/pages/product/list.html.twig', [
+        return $this->render('backend/product/list.html.twig', [
             'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 10)
         ]);
     }
@@ -61,7 +61,7 @@ final class ProductController extends AbstractController
             return $this->redirectToRoute('app_backend_product_list');
         }
 
-        return $this->render('backend/pages/product/create.html.twig', [
+        return $this->render('backend/product/create.html.twig', [
             'formProduct' => $form->createView(),
         ]);
     }
@@ -143,7 +143,7 @@ final class ProductController extends AbstractController
             return $this->redirectToRoute('app_backend_product_list');
         }
 
-        return $this->render('backend/pages/product/update.html.twig', [
+        return $this->render('backend/product/update.html.twig', [
             'formProduct' => $form->createView(),
         ]);
     }
@@ -167,7 +167,7 @@ final class ProductController extends AbstractController
 
         // $this->denyAccessUnlessGranted('show', $product);
 
-        return $this->render('backend/pages/product/detail.html.twig', [
+        return $this->render('backend/product/detail.html.twig', [
             'product' => $product,
         ]);
     }
