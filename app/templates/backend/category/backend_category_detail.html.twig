@@ -6,11 +6,11 @@
 <div class="container">
     <h1>Catégorie {{ category.name }} </h1>
 
-    <section class="section_one_category">
-        <section class="one_category">
-            <article class='one_category'>
+    <section class="section_detail_category">
+        <section class="detail_category">
+            <article class='detail_category'>
 
-                {# <div class='one_category_img'>
+                {# <div class='detail_category_img'>
                     {% if category.images %}
                         <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ category.images) }}" alt="" > 
                     {% else %}
@@ -18,13 +18,13 @@
                     {% endif %}
                 </div> #}
 
-                <div class='one_category_text'>
+                <div class='detail_category_text'>
                     <p class=''>Id : {{ category.id }}</p>
                     <p class=''>Nom : {{ category.name }}</p>
                     <p class=''>Créé par : {{ category.user.lastName }} {{ category.user.firstName }}</p>
 
                     {% if app.user %}
-                        <p class="one_category_action">
+                        <p class="detail_category_action">
                             {% if category.user.id == app.user.id %}
                                 <span>
                                     <a href="{{ path('app_backend_category_update', { 'id' : category.id } ) }}" class="btn">Modifier</a>

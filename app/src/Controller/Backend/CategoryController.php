@@ -23,7 +23,7 @@ final class CategoryController extends AbstractController
         Request $request
     ): Response
     {
-        return $this->render('backend/category/list.html.twig', [
+        return $this->render('backend/category/backend_category_list.html.twig', [
             'pagination' => $categoryRepository->findPaginationList($request->query->getInt('page', 1), 'category', 20)
         ]);
     }
@@ -61,7 +61,7 @@ final class CategoryController extends AbstractController
             return $this->redirectToRoute('app_backend_category_list');
         }
 
-        return $this->render('backend/category/create.html.twig', [
+        return $this->render('backend/category/backend_category_create.html.twig', [
             'formCategory' => $form->createView(),
         ]);
     }
@@ -143,7 +143,7 @@ final class CategoryController extends AbstractController
             return $this->redirectToRoute('app_backend_category_list');
         }
 
-        return $this->render('backend/category/update.html.twig', [
+        return $this->render('backend/category/backend_category_update.html.twig', [
             'formCategory' => $form->createView(),
         ]);
     }
@@ -164,7 +164,7 @@ final class CategoryController extends AbstractController
 
         // $this->denyAccessUnlessGranted('show', $category);
 
-        return $this->render('backend/category/detail.html.twig', [
+        return $this->render('backend/category/backend_category_detail.html.twig', [
             'category' => $category,
         ]);
     }

@@ -22,7 +22,7 @@ final class UserController extends AbstractController
         Request $request
     ): Response
     {
-        return $this->render('backend/user/list.html.twig', [
+        return $this->render('backend/user/backend_user_list.html.twig', [
             'pagination' => $userRepository->findPaginationList($request->query->getInt('page', 1), 'user', 1)
         ]);
     }
@@ -67,7 +67,7 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_backend_user_list');
         }
 
-        return $this->render('backend/user/create.html.twig', [
+        return $this->render('backend/user/backend_user_create.html.twig', [
             'formUser' => $form->createView(),
         ]);
     }
@@ -156,7 +156,7 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_backend_user_list');
         }
 
-        return $this->render('backend/user/update.html.twig', [
+        return $this->render('backend/user/backend_user_update.html.twig', [
             'formUser' => $form->createView(),
         ]);
     }
@@ -180,7 +180,7 @@ final class UserController extends AbstractController
 
         // $this->denyAccessUnlessGranted('show', $user);
 
-        return $this->render('backend/user/detail.html.twig', [
+        return $this->render('backend/user/backend_user_detail.html.twig', [
             'user' => $userDetail,
         ]);
     }
