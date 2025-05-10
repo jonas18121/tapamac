@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Manager\ProductManager;
-use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
