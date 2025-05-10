@@ -1,0 +1,28 @@
+{% extends "general/base.html.twig" %}
+
+{% block title 'Modifier une catégorie' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1>Modifier une catégorie</h1>
+
+        <div class="container_form">
+            {% embed 'backend/category/components/_form.html.twig'
+                with { formCategory: formCategory } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Modifier cette catégorie
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock body %}

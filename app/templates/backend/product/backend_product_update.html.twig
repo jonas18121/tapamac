@@ -1,6 +1,6 @@
 {% extends "general/base.html.twig" %}
 
-{% block title 'Modifier une catégorie' %}
+{% block title 'Modifier un produit' %}
 
 {% block stylesheets %}
 
@@ -9,10 +9,10 @@
 {% block body %}
     <div class="container">
 
-        <h1>Modifier une catégorie</h1>
+        <h1>Modifier un produit</h1>
 
         <div class="container_form">
-            {% include 'backend/category/components/_form.html.twig' with {'formCategory': formCategory } %}
+            {% include 'backend/product/components/_form.html.twig' with {'formProduct': formProduct } %}
         </div>
     </div>
 {% endblock body %}

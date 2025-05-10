@@ -17,7 +17,6 @@ use App\Entity\User;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;

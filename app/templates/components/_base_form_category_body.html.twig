@@ -1,0 +1,10 @@
+{# Représente la base du formulaire de catégorie #}
+{# Les champs obligatoire #}
+
+<div class="container_form_element">
+    <div>
+        <label for="category_name" class="form_label">Titre</label>
+        {{ form_widget(formCategory.name, {attr : {class : 'form_input' }} ) }}
+    </div>
+    <small class="error_input_small">{{ form_errors(formCategory.name) }}</small>
+</div>
