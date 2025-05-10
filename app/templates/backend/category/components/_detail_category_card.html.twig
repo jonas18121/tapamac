@@ -1,0 +1,38 @@
+<section class="section_detail_category">
+    <section class="detail_category">
+        <article class='detail_category'>
+
+            {# <div class='detail_category_img'>
+                {% if category.images %}
+                    <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ category.images) }}" alt="" > 
+                {% else %}
+                    <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
+                {% endif %}
+            </div> #}
+
+            <div class='detail_category_text'>
+                <p class=''>Id : {{ category.id }}</p>
+                <p class=''>Nom : {{ category.name }}</p>
+                <p class=''>Créé par : {{ category.user.lastName }} {{ category.user.firstName }}</p>
+
+                {% if app.user %}
+                    <p class="detail_category_action">
+                        {% if category.user.id == app.user.id %}
+                            <span>
+                                <a href="{{ path('app_backend_category_update', { 'id' : category.id } ) }}" class="btn">Modifier</a>
+                            </span>
+                            <span>
+                                <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                    <button class='btn_delete'>Supprimer</button>
+                                </form>
+                            </span>
+                        {% else %}
+                        {% endif %}
+                    </p>
+                {% endif %}
+            </div>
+        </article>
+    </section>
+</section>

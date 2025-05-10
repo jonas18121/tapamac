@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Manager\CategoryManager;
-use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

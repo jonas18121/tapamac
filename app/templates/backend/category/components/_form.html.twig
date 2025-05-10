@@ -1,11 +1,26 @@
 {{ form_start(formCategory, { 'attr' : { 'class' : 'form backend category_backend' }} ) }}
-    <div class="container_form">
-        <div>
-            <label for="category_name" class="form_label">Titre</label>
-            {{ form_widget(formCategory.name, {attr : {class : 'form_input' }} ) }}
-        </div>
-        <small class="error_input_small">{{ form_errors(formCategory.name) }}</small>
-    </div>
 
-    <button type="submit" class="btn">Valider</button>
+    <div class="container_form_block">
+        {% include 'components/_base_form_category_body.html.twig' with {'formCategory': formCategory } %}
+
+        {# 
+            Nous pouvons rajouter des champs ici, ci besoin 
+            à partir de la balise div.container_form_element
+            comme l'exemple ci-dessous.
+            On remplace new_props par le nom de la nouvelle propriété
+
+            <div class="container_form_element">
+                <div>
+                    <label for="category_new_props" class="form_label">new_props</label>
+                    {{ form_widget(formCategory.new_props, {attr : {class : 'form_input' }} ) }}
+                </div>
+                <small class="error_input_small">{{ form_errors(formCategory.new_props) }}</small>
+            </div>
+        #}
+
+        {# Bouton par défaut qui peut être surcharger #}
+        {% block formButton %}
+            <button type="submit" class="btn">Valider</button>
+        {% endblock formButton %}
+    </div>
 {{ form_end(formCategory) }}

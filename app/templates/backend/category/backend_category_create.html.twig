@@ -11,7 +11,17 @@
         <h1>Créer une catégorie</h1>
 
         <div class="container_form">
-            {% include 'backend/category/components/_form.html.twig' with {'formCategory': formCategory } %}
+            {% embed 'backend/category/components/_form.html.twig'
+                with { formCategory: formCategory } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="btn btn_success">
+                        Enregistrer la catégorie
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
         </div>
     </div>
 {% endblock body %}
