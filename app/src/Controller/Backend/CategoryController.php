@@ -19,12 +19,12 @@ final class CategoryController extends AbstractController
         name: 'app_backend_category_list'
     )]
     public function list(
-        CategoryRepository $categoryRepository, 
+        CategoryManager $categoryManager, 
         Request $request
     ): Response
     {
         return $this->render('backend/category/backend_category_list.html.twig', [
-            'pagination' => $categoryRepository->findPaginationList($request->query->getInt('page', 1), 'category', 20)
+            'pagination' => $categoryManager->list($request->query->getInt('page', 1), 'category', 20)
         ]);
     }
 

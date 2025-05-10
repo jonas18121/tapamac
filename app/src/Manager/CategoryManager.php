@@ -13,14 +13,45 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Entity\Category;
 use App\Entity\User;
+use App\Entity\Category;
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Category - Manager.
  */
 class CategoryManager extends BaseManager
 {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private ValidatorInterface $validator,
+        private TranslatorInterface $translator,
+        private ParameterBagInterface $parameters,
+        private RequestStack $requestStack,
+        private TokenStorageInterface $tokenStorage,
+        private UrlGeneratorInterface $urlGenerator,
+        private CategoryRepository $categoryRepository
+    ) 
+    {
+        parent::__construct(
+            $entityManager,
+            $validator,
+            $translator,
+            $parameters,
+            $requestStack,
+            $tokenStorage,
+            $urlGenerator,
+        );
+    }
+
     public function create(Category $category, User $user): Category
     {
         $category->setCreatedAt(new \DateTimeImmutable())
@@ -58,5 +89,14 @@ class CategoryManager extends BaseManager
             $em->remove($category);
             $em->flush();
         }
+    }
+
+    public function list(
+        int $page, 
+        string $name, 
+        int $limit
+    ): ?SlidingPagination
+    {
+        return $this->categoryRepository->findPaginationList($page, $name, $limit);
     }
 }

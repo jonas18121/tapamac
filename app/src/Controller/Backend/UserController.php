@@ -5,7 +5,6 @@ namespace App\Controller\Backend;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Manager\UserManager;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,12 +17,12 @@ final class UserController extends AbstractController
         name: 'app_backend_user_list'
     )]
     public function list(
-        UserRepository $userRepository, 
+        UserManager $userManager, 
         Request $request
     ): Response
     {
         return $this->render('backend/user/backend_user_list.html.twig', [
-            'pagination' => $userRepository->findPaginationList($request->query->getInt('page', 1), 'user', 1)
+            'pagination' => $userManager->list($request->query->getInt('page', 1), 'user', 1)
         ]);
     }
 
