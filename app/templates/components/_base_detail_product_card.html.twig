@@ -1,17 +1,18 @@
 {# Représente la base de la page d'un produit #}
 
-<article class='detail_product'>
-
-    {# <div class='one_product_img'>
-        {% if product.images %}
+<article class='detail_product_block'>
+    <div class='detail_product_img'>
+        <img class="" src= "/uploads/images/test.png" alt="" > 
+        {# {% if product.images %}
             <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ product.images) }}" alt="" > 
         {% else %}
             <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
-        {% endif %}
-    </div> #}
+        {% endif %} #}
+    </div> 
 
     <div class='detail_product_text'>
-        <p class=''>Nom : {{ product.title }}</p>
+        <h1>{{ product.title }} </h1>
+        {# <p class=''>Nom : {{ product.title }}</p> #}
         <p class=''>Créé par : {{ product.user.lastName }} {{ product.user.firstName }}</p>
 
         {% block surchargeOne %}{% endblock surchargeOne %}
@@ -33,7 +34,6 @@
                 {% endif %}
             </p>
         {% endif %}
+        {% block surchargeTwo %}{% endblock surchargeTwo %}
     </div>
-
-    {% block surchargeTwo %}{% endblock surchargeTwo %}
 </article>
