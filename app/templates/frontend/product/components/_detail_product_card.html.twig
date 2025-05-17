@@ -5,11 +5,36 @@
             only
         %}
             {# Surcharge d'autres éléments/propriétés  ci besoin #}
-            {% block surchargeOne %}{% endblock surchargeOne %}
+            {% block surchargeOne %}
+                <p>Prix : {{ product.price}} €</p>
+                <p>{{ product.description}}</p>
+                <p>Catégorie : {{ product.category.name}}</p>
+            {% endblock surchargeOne %}
 
             {# Surcharge d'autres éléments/propriétés  ci besoin #}
             {% block surchargeTwo %}
-                Ce produit est le meilleur du monde
+                <div>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                    <p>Ce produit est le meilleur du monde</p>
+                </div>
             {% endblock surchargeTwo %}
         {% endembed %}
     </section>
