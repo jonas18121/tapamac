@@ -1,0 +1,35 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.section_detail_product .detail_product_block {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 720px;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.section_detail_product .detail_product_block .detail_product_img {
+    width: 350px;
+    max-width: 350px;
+    margin-right: 1rem;
+}
+
+.section_detail_product .detail_product_block .detail_product_img img {
+    border-radius: 10px;
+}
+
+.section_detail_product .detail_product_block .detail_product_text h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.section_detail_product .detail_product_block .detail_product_text p {
+    margin: 1rem;
+}
