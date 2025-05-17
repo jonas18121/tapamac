@@ -61,3 +61,21 @@ table{
     background-color: var(--add-flash-notice);
     color: var(--white);
 }
+
+/* ====== Button Add ====== */
+
+.container .add {
+    margin: 2rem 0;
+}
+
+.container .add a {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid var(--black);
+    border-radius: 10px;
+}
+
+.container .add a:hover {
+    background-color: var(--grey);
+    color: var(--white);
+}
