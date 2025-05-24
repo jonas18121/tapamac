@@ -18,6 +18,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -73,7 +74,7 @@ class FileManager extends BaseManager
                 $filenames[] = $newFilename;
             } 
             catch (FileException $e) {
-                $this->addFlashFromManager('error', 'Erreur lors de l\'upload.');
+                throw new Exception("Erreur lors de l'upload.");
             }
         }
 

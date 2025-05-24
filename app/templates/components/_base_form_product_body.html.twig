@@ -36,7 +36,7 @@
 {# Facultative #}
 <div class="container_form_element">
     <div>
-        <label for="product_new_images" class="form_label">Télécharger jusqu'à images maximum</label>
+        <label for="product_new_images" class="form_label">Télécharger jusqu'à 5 images maximum</label>
         {{ form_widget(formProduct.uploadImages, {attr : {class : 'form_input' }} ) }}
     </div>
     <small class="error_input_small">{{ form_errors(formProduct.uploadImages) }}</small>
