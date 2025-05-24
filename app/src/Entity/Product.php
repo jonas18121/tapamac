@@ -33,6 +33,9 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?User $user = null;
 
+    #[ORM\Column(type: 'json')]
+    private ?array $images = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,5 +99,15 @@ class Product
         $this->user = $user;
 
         return $this;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(array $images): void
+    {
+        $this->images = $images;
     }
 }

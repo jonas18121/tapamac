@@ -9,6 +9,7 @@ use App\Manager\ProductManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ProductController extends AbstractController
@@ -48,7 +49,15 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productManager->create($product, $user);
+
+            /** @var Array $files */
+            $files = $form->get('uploadImages')->getData();
+            $productManager->uploadWhitImage(
+                $product, 
+                $files, 
+                '/public/uploads/images/products', 
+                'create'
+            );
 
             // add flash
             $this->addFlash(
@@ -123,14 +132,22 @@ final class ProductController extends AbstractController
         }
 
         // voter
-        // $this->denyAccessUnlessGranted('edit', $storageSpace);
+        // $this->denyAccessUnlessGranted('edit', $product);
 
         $form = $this->createForm(ProductType::class, $product, ['method' => 'PUT']);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productManager->update($product);
+
+            /** @var Array $files */
+            $files = $form->get('uploadImages')->getData();
+            $productManager->uploadWhitImage(
+                $product, 
+                $files, 
+                '/public/uploads/images/products', 
+                'update'
+            );
 
             // add flash
             $this->addFlash(
