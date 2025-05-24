@@ -63,4 +63,8 @@ class BaseManager
         return null;
     }
 
+    public function addFlashFromManager(string $status, string $text): void
+    {
+        $this->requestStack->getSession()->getFlashBag()->add($status, $text);
+    }
 }
