@@ -15,11 +15,13 @@ namespace App\Manager;
 
 use App\Entity\User;
 use App\Entity\Product;
+use App\Manager\FileManager;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -38,7 +40,8 @@ class ProductManager extends BaseManager
         private RequestStack $requestStack,
         private TokenStorageInterface $tokenStorage,
         private UrlGeneratorInterface $urlGenerator,
-        private ProductRepository $productRepository
+        private ProductRepository $productRepository,
+        private FileManager $fileManager
     ) 
     {
         parent::__construct(
@@ -98,5 +101,29 @@ class ProductManager extends BaseManager
     ): ?SlidingPagination
     {
         return $this->productRepository->findPaginationList($page, $name, $limit);
+    }
+
+    public function uploadWhitImage(
+        Product $product, 
+        Array $files, 
+        string $relatifPathImage,
+        string $methode
+    ): Product
+    {
+        if (!empty($files)) {
+            $newFilenames = $this->fileManager->uploadMultipleFile($files, $relatifPathImage);
+            $product->setImages($newFilenames);
+        }
+
+        switch ($methode) {
+            case 'create':
+                return $this->create($product, $this->getCurrentUser());
+                break;
+            case 'update':
+                return $this->update($product);
+                break;
+            default :
+                throw new Exception("Aucune méthode valide n'a été indiquer pour télécharger des images.");
+        }
     }
 }

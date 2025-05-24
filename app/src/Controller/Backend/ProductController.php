@@ -49,7 +49,15 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productManager->create($product, $user);
+            
+            /** @var Array $files */
+            $files = $form->get('uploadImages')->getData();
+            $productManager->uploadWhitImage(
+                $product, 
+                $files, 
+                '/public/uploads/images/products', 
+                'create'
+            );
 
             // add flash
             $this->addFlash(
@@ -131,7 +139,15 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $productManager->update($product);
+            
+            /** @var Array $files */
+            $files = $form->get('uploadImages')->getData();
+            $productManager->uploadWhitImage(
+                $product, 
+                $files, 
+                '/public/uploads/images/products', 
+                'update'
+            );
 
             // add flash
             $this->addFlash(
