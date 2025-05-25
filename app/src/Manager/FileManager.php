@@ -60,8 +60,7 @@ class FileManager extends BaseManager
     {
         $filenames = [];
         foreach ($files as $key => $file) {
-            // On rajoute la valeur de $key au nom de chaque fichiers
-            $filenames[] = $key . '_' . $this->uploadFile($file, $relatifPathToFile);
+            $filenames[] = $this->uploadFile($file, $relatifPathToFile, $key);
         }
 
         return $filenames;
@@ -70,13 +69,18 @@ class FileManager extends BaseManager
     /**
      * Permet de télécharger un fichier
      */
-    public function uploadFile(UploadedFile $file, string $relatifPathToFile): string
+    public function uploadFile(UploadedFile $file, string $relatifPathToFile, null|int $key): string
     {
         $explodeFilename = explode('.', $file->getClientOriginalName());
 
         $date = new DateTimeImmutable();
 
         $newFilename = $explodeFilename[0] . '_' . $date->format('Ymd_His_mmm') . '.' . $file->getClientOriginalExtension();
+
+        // Si $key contient une valeur, on rajoute la valeur de $key au nom du fichier
+        if (null !== $key) {
+            $newFilename =  $key . '_' . $newFilename;
+        }
 
         $moveIn = $this->parameters->get('kernel.project_dir') . $relatifPathToFile;
 

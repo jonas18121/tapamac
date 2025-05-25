@@ -2,12 +2,18 @@
 
 <article class='detail_product_block'>
     <div class='detail_product_img'>
-        <img class="" src= "/uploads/images/test.png" alt="" > 
+        <img class="" src="/uploads/images/test.png" alt="" > 
+
+        {{ dump(product) }}
         {# {% if product.images %}
             <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ product.images) }}" alt="" > 
         {% else %}
             <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
         {% endif %} #}
+
+        {% for key, value in product.images %}
+            <img class="" src="/uploads/images/products/{{ value }}" alt="{{ value }}" > 
+        {% endfor %}
     </div> 
 
     <div class='detail_product_text'>
