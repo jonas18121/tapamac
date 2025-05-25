@@ -18,6 +18,7 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -53,31 +54,39 @@ class FileManager extends BaseManager
     }
 
     /**
-     * Permet de télécharger un fichier
+     * Permet de télécharger un ou plusieur fichiers
      */
     public function uploadMultipleFile(Array $files, string $relatifPathToFile): Array
     {
         $filenames = [];
-
         foreach ($files as $key => $file) {
-
-            $explodeFilename = explode('.', $file->getClientOriginalName());
-
-            $date = new DateTimeImmutable();
-
-            $newFilename = $explodeFilename[0] . '_'  . $key . '_' . $date->format('Ymd_His_mmm') . '.' . $file->getClientOriginalExtension();
-
-            $moveIn = $this->parameters->get('kernel.project_dir') . $relatifPathToFile;
-
-            try {
-                $file->move($moveIn, $newFilename);
-                $filenames[] = $newFilename;
-            } 
-            catch (FileException $e) {
-                throw new Exception("Erreur lors de l'upload.");
-            }
+            // On rajoute la valeur de $key au nom de chaque fichiers
+            $filenames[] = $key . '_' . $this->uploadFile($file, $relatifPathToFile);
         }
 
         return $filenames;
+    }
+
+    /**
+     * Permet de télécharger un fichier
+     */
+    public function uploadFile(UploadedFile $file, string $relatifPathToFile): string
+    {
+        $explodeFilename = explode('.', $file->getClientOriginalName());
+
+        $date = new DateTimeImmutable();
+
+        $newFilename = $explodeFilename[0] . '_' . $date->format('Ymd_His_mmm') . '.' . $file->getClientOriginalExtension();
+
+        $moveIn = $this->parameters->get('kernel.project_dir') . $relatifPathToFile;
+
+        try {
+            $file->move($moveIn, $newFilename);
+        } 
+        catch (FileException $e) {
+            throw new FileException("Erreur lors de l'upload.");
+        }
+
+        return $newFilename;
     }
 }
