@@ -52,7 +52,7 @@ final class ProductController extends AbstractController
             
             /** @var Array $files */
             $files = $form->get('uploadImages')->getData();
-            $productManager->uploadWhitImage(
+            $productManager->createOrUpdateWithUploadImage(
                 $product, 
                 $files, 
                 '/public/uploads/images/products', 
@@ -142,7 +142,7 @@ final class ProductController extends AbstractController
             
             /** @var Array $files */
             $files = $form->get('uploadImages')->getData();
-            $productManager->uploadWhitImage(
+            $productManager->createOrUpdateWithUploadImage(
                 $product, 
                 $files, 
                 '/public/uploads/images/products', 

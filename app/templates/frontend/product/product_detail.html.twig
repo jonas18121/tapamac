@@ -7,6 +7,10 @@
     <link href="/css/frontend/product/detail/index.css" rel="stylesheet" />
 {% endblock %}
 
+{% block javascripts %}
+    <script type="module" src="/js/frontend/product/product.js"></script>
+{% endblock %}
+
 {% block body %}
     <div class="container">    
         {% include 'frontend/product/components/_detail_product_card.html.twig' with {'product': product } %}
