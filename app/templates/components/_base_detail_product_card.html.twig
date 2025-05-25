@@ -2,18 +2,13 @@
 
 <article class='detail_product_block'>
     <div class='detail_product_img'>
-        <img class="" src="/uploads/images/test.png" alt="" > 
-
-        {{ dump(product) }}
-        {# {% if product.images %}
-            <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/images/' ~ product.images) }}" alt="" > 
-        {% else %}
-            <img class="img_storage_page_get_all img_storage_page_get_all_2500 img_storage_page_get_one" src= "{{ asset('/uploads/default/default.jpg') }}" alt="" > 
-        {% endif %} #}
-
-        {% for key, value in product.images %}
-            <img class="" src="/uploads/images/products/{{ value }}" alt="{{ value }}" > 
-        {% endfor %}
+        <img id="image_default" class="" src="/uploads/images/products/{{ product.images[0] }}" alt="{{ product.images[0] }}" > 
+        
+        <div class="horizontal-scroll-wrapper squares">
+            {% for key, value in product.images %}
+                <img id="image_{{ key }}" class="" src="/uploads/images/products/{{ value }}" alt="{{ value }}" > 
+            {% endfor %}
+        </div>
     </div> 
 
     <div class='detail_product_text'>
@@ -24,22 +19,24 @@
         {% block surchargeOne %}{% endblock surchargeOne %}
 
         {% if app.user %}
-            <p class="detail_product_action">
-                {% if product.user.id == app.user.id %}
-                    <span>
-                        <a href="{{ path('app_backend_product_update', { 'id' : product.id } ) }}" class="btn">Modifier</a>
-                    </span>
-                    <span>
-                        <form method="POST" action="{{ path('app_backend_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                            <button class='btn_delete'>Supprimer</button>
-                        </form>
-                    </span>
-                {% else %}
-                {% endif %}
-            </p>
+            {% block surchargeTwo %}
+                <p class="detail_product_action">
+                    {% if product.user.id == app.user.id %}
+                        <span>
+                            <a href="{{ path('app_backend_product_update', { 'id' : product.id } ) }}" class="btn">Modifier</a>
+                        </span>
+                        <span>
+                            <form method="POST" action="{{ path('app_backend_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                <button class='btn_delete'>Supprimer</button>
+                            </form>
+                        </span>
+                    {% else %}
+                    {% endif %}
+                </p>
+            {% endblock surchargeTwo %}
         {% endif %}
-        {% block surchargeTwo %}{% endblock surchargeTwo %}
+        {% block surchargeThree %}{% endblock surchargeThree %}
     </div>
 </article>

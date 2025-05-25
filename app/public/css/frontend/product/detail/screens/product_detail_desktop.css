@@ -38,3 +38,19 @@
 .section_detail_product .detail_product_block .detail_product_text p {
     margin: 1rem;
 }
+
+/* SCROLL Horizontal image */
+.horizontal-scroll-wrapper {
+    width: 100px;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform:rotate(-90deg) translateY(199px) translateX(163px);
+}
+
+.horizontal-scroll-wrapper > img {
+    margin: 1rem;
+    width: 100px;
+    height: 100px;
+    transform: rotate(90deg);
+}

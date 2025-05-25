@@ -13,6 +13,25 @@
 
             {# Surcharge d'autres éléments/propriétés  ci besoin #}
             {% block surchargeTwo %}
+                <p class="detail_product_action">
+                    {% if product.user.id == app.user.id %}
+                        <span>
+                            <a href="{{ path('app_product_update', { 'id' : product.id } ) }}" class="btn">Modifier</a>
+                        </span>
+                        <span>
+                            <form method="POST" action="{{ path('app_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                <button class='btn_delete'>Supprimer</button>
+                            </form>
+                        </span>
+                    {% else %}
+                    {% endif %}
+                </p>
+            {% endblock surchargeTwo %}
+
+{# Surcharge d'autres éléments/propriétés  ci besoin #}
+            {% block surchargeThree %}
                 <div>
                     <p>Ce produit est le meilleur du monde</p>
                     <p>Ce produit est le meilleur du monde</p>
@@ -35,7 +54,7 @@
                     <p>Ce produit est le meilleur du monde</p>
                     <p>Ce produit est le meilleur du monde</p>
                 </div>
-            {% endblock surchargeTwo %}
+            {% endblock surchargeThree %}
         {% endembed %}
     </section>
 </section>
