@@ -103,7 +103,7 @@ class ProductManager extends BaseManager
         return $this->productRepository->findPaginationList($page, $name, $limit);
     }
 
-    public function uploadWhitImage(
+    public function createOrUpdateWithUploadImage(
         Product $product, 
         Array $files, 
         string $relatifPathImage,
