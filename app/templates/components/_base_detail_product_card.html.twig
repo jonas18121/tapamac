@@ -2,13 +2,17 @@
 
 <article class='detail_product_block'>
     <div class='detail_product_img'>
-        <img id="image_default" class="" src="/uploads/images/products/{{ product.images[0] }}" alt="{{ product.images[0] }}" > 
+        {% if product.images is defined and product.images is not empty %}
+            <img id="image_default" class="" src="/uploads/images/products/{{ product.images[0] }}" alt="{{ product.images[0] }}" > 
         
-        <div class="horizontal-scroll-wrapper squares">
-            {% for key, value in product.images %}
-                <img id="image_{{ key }}" class="" src="/uploads/images/products/{{ value }}" alt="{{ value }}" > 
-            {% endfor %}
-        </div>
+            <div class="horizontal-scroll-wrapper squares">
+                {% for key, value in product.images %}
+                    <img id="image_{{ key }}" class="" src="/uploads/images/products/{{ value }}" alt="{{ value }}" > 
+                {% endfor %}
+            </div>
+        {% else %} 
+            <img id="" class="" src="/uploads/images/test.png" alt="test.png">
+        {% endif %}
     </div> 
 
     <div class='detail_product_text'>
