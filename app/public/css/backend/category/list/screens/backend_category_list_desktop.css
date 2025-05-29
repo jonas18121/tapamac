@@ -1,0 +1,10 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.action span {
+    display: inline-block;
+}

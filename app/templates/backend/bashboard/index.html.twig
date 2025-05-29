@@ -2,18 +2,27 @@
 
 {% block title %}Tableau de bord{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/backend/dashboard/index.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-    <section class="container_list">
-        <article class="bashboard_card">
-            <a href="{{ path('app_backend_category_list') }}">Catégories</a>
-        </article>
+    <section class="container">
+        <h1 class='title'>Tableau de bord</h1>
 
-        <article class="bashboard_card">
-            <a href="{{ path('app_backend_product_list') }}">Produits</a>
-        </article>
+        <section class="container_list">
+            <article class="bashboard_card">
+                <a href="{{ path('app_backend_category_list') }}">Catégories</a>
+            </article>
 
-        <article class="bashboard_card">
-            <a href="{{ path('app_backend_user_list') }}">Utilisateurs</a>
-        </article>
+            <article class="bashboard_card">
+                <a href="{{ path('app_backend_product_list') }}">Produits</a>
+            </article>
+
+            <article class="bashboard_card">
+                <a href="{{ path('app_backend_user_list') }}">Utilisateurs</a>
+            </article>
+        </section>
     </section>
 {% endblock %}

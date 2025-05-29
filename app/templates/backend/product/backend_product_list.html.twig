@@ -2,8 +2,12 @@
 
 {% block title %}Ajouter un Produits{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
-    <section class="container_list">
+    <section class="container">
         <p><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
 
         {% if pagination is defined and pagination is not empty  %}
@@ -32,14 +36,18 @@
                             <td>{{ product.price }}</td>
                             <td>{{ product.category.name }}</td>
                             <td>{{ product.createdAt | date('d/m/Y H:i') }}</td>
-                            <td>
-                                <a href="{{ path('app_backend_product_update', { id: product.id }) }}">Modifier</a>
+                            <td class="action">
+                                <span class='update'>
+                                    <a href="{{ path('app_backend_product_update', { id: product.id }) }}">Modifier</a>
+                                </span>
 
-                                <form method="POST" action="{{ path('app_backend_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                                    <button class='btn_delete'>Supprimer</button>
-                                </form>
+                                <span class='delete'>
+                                    <form method="POST" action="{{ path('app_backend_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                        <button class='btn_delete'>Supprimer</button>
+                                    </form>
+                                </span>
                             </td>
                         </tr>
                     {% endfor %}

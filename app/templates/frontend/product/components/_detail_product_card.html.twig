@@ -13,12 +13,12 @@
 
             {# Surcharge d'autres éléments/propriétés  ci besoin #}
             {% block surchargeTwo %}
-                <p class="detail_product_action">
+                <div class="detail_product_action action">
                     {% if product.user.id == app.user.id %}
-                        <span>
+                        <span class='update'>
                             <a href="{{ path('app_product_update', { 'id' : product.id } ) }}" class="btn">Modifier</a>
                         </span>
-                        <span>
+                        <span class='delete'>
                             <form method="POST" action="{{ path('app_product_delete', { 'id' : product.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet élément ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
@@ -27,7 +27,7 @@
                         </span>
                     {% else %}
                     {% endif %}
-                </p>
+                </div>
             {% endblock surchargeTwo %}
 
 {# Surcharge d'autres éléments/propriétés  ci besoin #}
