@@ -54,3 +54,34 @@
     height: 100px;
     transform: rotate(90deg);
 }
+
+.detail_product_action {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.detail_product_action span {
+    margin: 0 1rem;
+    border: none;
+}
+
+.detail_product_action span form button {
+    background-color: transparent;
+    border: none;
+    margin: initial;
+    font-size: 1.6rem;
+}
+
+.detail_product_action span.update {
+    background-color: var(--yellow);
+}
+
+.detail_product_action span.delete {
+    background-color: var(--red-delete);
+}
+
+.detail_product_action span a,
+.detail_product_action span form button {
+    color: var(--white);
+}

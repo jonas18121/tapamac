@@ -62,12 +62,13 @@ table{
     color: var(--white);
 }
 
-/* ====== Button Add ====== */
+/* ====== Button ====== */
 
 .container .add {
     margin: 2rem 0;
 }
 
+.action span,
 .container .add a {
     margin: 1rem 0;
     padding: 1rem;
@@ -77,5 +78,57 @@ table{
 
 .container .add a:hover {
     background-color: var(--grey);
+    color: var(--white);
+}
+
+.action span.update {
+    border: none;
+    background-color: var(--yellow);
+}
+
+.action span.delete {
+    border: none;
+    background-color: var(--red-delete);
+}
+
+.action span a,
+.action span form button {
+    color: var(--white);
+}
+
+.action span form button {
+    background-color: transparent;
+    border: none;
+    margin: initial;
+    font-size: 1.6rem;
+}
+
+/* ====== List ====== */
+.container_list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+/* ====== Table ====== */
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+.table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+  
+.table tr:hover {
+    background-color: #ddd;
+}
+  
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
     color: var(--white);
 }
