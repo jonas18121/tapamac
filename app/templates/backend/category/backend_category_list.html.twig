@@ -2,8 +2,13 @@
 
 {% block title %}Liste de categories{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/backend/category/list/index.css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-    <section class="container_list">
+    <section class="container">
         <p><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
 
         {% if pagination is defined and pagination is not empty  %}
@@ -24,14 +29,17 @@
                                     {{ category.name }}
                                 </a>
                             </td>
-                            <td>
-                                <a href="{{ path('app_backend_category_update', { id: category.id }) }}">Modifier</a>
-
-                                <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                                    <button class='btn_delete'>Supprimer</button>
-                                </form>
+                            <td class="action">
+                                <span class='update'>
+                                    <a href="{{ path('app_backend_category_update', { id: category.id }) }}">Modifier</a>
+                                </span>
+                                <span class='delete'>
+                                    <form method="POST" action="{{ path('app_backend_category_delete', { 'id' : category.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette élément ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                        <button class='btn_delete'>Supprimer</button>
+                                    </form>
+                                </span>
                             </td>
                         </tr>
                     {% endfor %}

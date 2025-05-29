@@ -1,0 +1,21 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.container_list {
+    padding: 1rem;
+}
+
+.bashboard_card {
+    border-radius: 50px;
+    padding: 8rem;
+    background-color: var(--light-bleu);
+    margin: 1rem;
+}
+
+.bashboard_card a {
+    color: var(--white);
+}

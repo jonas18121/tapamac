@@ -11,6 +11,8 @@
 
     --red: rgb(126, 42, 42);
 
+    --red-delete: rgb(170, 15, 15);
+
     --green: #198a60;
 
     --purple: rgba(107, 13, 110, 0.733);
@@ -24,4 +26,6 @@
     --add-flash-warning: rgb(153, 138, 8);
 
     --add-flash-notice: rgb(75, 74, 74);
+
+    --light-bleu: rgb(55, 128, 211);
 }
