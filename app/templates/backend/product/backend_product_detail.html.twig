@@ -2,10 +2,19 @@
 
 {% block title %}Produit {{ product.title }} {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/shared/product/detail/index.css" rel="stylesheet" />
+    <link href="/css/backend/product/detail/index.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="/js/shared/product/product.js"></script>
+    <script type="module" src="/js/backend/product/product.js"></script>
+{% endblock %}
+
 {% block body %}
-<div class="container">
-    <h1>{{ product.title }} </h1>
-    
-    {% include 'backend/product/components/_detail_product_card.html.twig' with {'product': product } %}
-</div>
+    <div class="container">
+        {% include 'backend/product/components/_backend_detail_product_card.html.twig' with {'product': product } %}
+    </div>
 {% endblock %}

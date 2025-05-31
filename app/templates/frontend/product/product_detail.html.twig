@@ -4,10 +4,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="/css/shared/product/detail/index.css" rel="stylesheet" />
     <link href="/css/frontend/product/detail/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
+    <script type="module" src="/js/shared/product/product.js"></script>
     <script type="module" src="/js/frontend/product/product.js"></script>
 {% endblock %}
 

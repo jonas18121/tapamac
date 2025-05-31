@@ -8,7 +8,7 @@
 
 {% block body %}
     <section class="container">
-        <p><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
+        <p class="add"><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
 
         {% if pagination is defined and pagination is not empty  %}
             <table class="table">

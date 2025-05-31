@@ -5,10 +5,11 @@
             only
         %}
             {# Surcharge d'autres éléments/propriétés #}
-            {% block surchargeOne %}{% endblock surchargeOne %}
+            {% block surchargeOne %}
+                {{ dump(product) }}
 
-            {# Surcharge d'autres éléments/propriétés #}
-            {% block surchargeTwo %}{% endblock surchargeTwo %}
+                <p class=''>Date de création : {{ product.createdat | date('d/m/Y H:i') }}</p>
+            {% endblock surchargeOne %}
 
             {# Surcharge d'autres éléments/propriétés #}
             {% block surchargeThree %}{% endblock surchargeThree %}
