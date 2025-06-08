@@ -68,9 +68,18 @@ table{
     margin: 2rem 0;
 }
 
-.action span,
+.action span {
+    margin: 1rem;
+}
+
+
 .container .add a {
     margin: 1rem 0;
+}
+
+.action span,
+.container .add a {
+    /* margin: 1rem 0; */
     padding: 1rem;
     border: 1px solid var(--black);
     border-radius: 10px;
@@ -89,6 +98,10 @@ table{
 .action span.delete {
     border: none;
     background-color: var(--red-delete);
+}
+
+.action span form {
+    display: inline-block;
 }
 
 .action span a,

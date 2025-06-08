@@ -3,16 +3,27 @@
 {% block title 'Modifier un produit' %}
 
 {% block stylesheets %}
-
+    {{ parent() }}
+    <link href="/css/backend/product/components/form/form.css" rel="stylesheet" />
+    <link href="/css/backend/product/update/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
     <div class="container">
-
         <h1>Modifier un produit</h1>
 
         <div class="container_form">
-            {% include 'backend/product/components/_form.html.twig' with {'formProduct': formProduct } %}
+            {% embed 'backend/product/components/_form.html.twig'
+                with { formProduct: formProduct } 
+                only
+            %}
+                {# Surcharge du bouton de soumission #}
+                {% block formButton %}
+                    <button type="submit" class="button btn_update">
+                        Modifier le produit
+                    </button>
+                {% endblock formButton %}
+            {% endembed %}
         </div>
     </div>
 {% endblock body %}

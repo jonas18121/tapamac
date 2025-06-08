@@ -1,0 +1,87 @@
+@import url('../../../../general/variables.css');
+
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+/* ////////////////// MAIN //////////////////// */
+
+.section_detail_product .detail_product_block {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.section_detail_product .detail_product_block .detail_product_img {
+    width: 500px;
+    max-width: 500px;
+    padding-right: 1rem;
+}
+
+.section_detail_product .detail_product_block .detail_product_img img {
+    border-radius: 10px;
+}
+
+.section_detail_product .detail_product_block .detail_product_text {
+    width: 700px;
+    max-width: 700px;
+}
+
+.section_detail_product .detail_product_block .detail_product_text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.section_detail_product .detail_product_block .detail_product_text p {
+    margin: 1rem;
+}
+
+/* SCROLL Horizontal image */
+.horizontal-scroll-wrapper {
+    width: 100px;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform:rotate(-90deg) translateY(199px) translateX(163px);
+}
+
+.horizontal-scroll-wrapper > img {
+    margin: 1rem;
+    width: 100px;
+    height: 100px;
+    transform: rotate(90deg);
+}
+
+.detail_product_action {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.detail_product_action span {
+    margin: 0 1rem;
+    border: none;
+}
+
+.detail_product_action span form button {
+    background-color: transparent;
+    border: none;
+    margin: initial;
+    font-size: 1.6rem;
+}
+
+.detail_product_action span.update {
+    background-color: var(--yellow);
+}
+
+.detail_product_action span.delete {
+    background-color: var(--red-delete);
+}
+
+.detail_product_action span a,
+.detail_product_action span form button {
+    color: var(--white);
+}
