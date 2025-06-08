@@ -6,7 +6,7 @@
 /* ////////////////// MAIN //////////////////// */
 
 .container_form {
-    width: 80rem;
+    width: 120rem;
     margin: auto;
     padding: 4rem 8rem 0;
     color: var(--white);
@@ -14,7 +14,7 @@
 
 .container_form_block {
     padding: 2rem 1rem;
-    background-color: var(--purple);
+    background-color: var(--backend-form-bleu);
     border-radius: 10px;
 }
 

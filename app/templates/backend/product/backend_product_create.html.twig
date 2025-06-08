@@ -3,7 +3,9 @@
 {% block title 'Créer une produit' %}
 
 {% block stylesheets %}
-
+    {{ parent() }}
+    <link href="/css/backend/product/components/form/form.css" rel="stylesheet" />
+    <link href="/css/backend/product/update/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
