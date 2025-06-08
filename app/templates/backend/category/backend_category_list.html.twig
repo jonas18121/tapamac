@@ -8,6 +8,11 @@
     <link href="/css/components/pagination/index.css" rel="stylesheet" />
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="/js/shared/table/table.js"></script>
+{% endblock %}
+
 {% block body %}
     <section class="container">
         <p class="add"><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
