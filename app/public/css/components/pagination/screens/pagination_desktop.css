@@ -1,0 +1,21 @@
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+@import url('../../../general/variables.css');
+
+.navigation {
+    margin: 2rem 0;
+    background-color: var(--white);
+}
+
+.navigation .pagination span { 
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.navigation .pagination span:not(:first-child) { 
+    margin: 0 0.5rem;
+}
+
+

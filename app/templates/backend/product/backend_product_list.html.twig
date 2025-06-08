@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="/css/components/pagination/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -56,12 +57,12 @@
         {% else %}
             <p>Aucun produit n'est créée</p>
         {% endif %}
-    </section>
 
-    {% if pagination is defined and pagination is not empty %}
-        {# display navigation #}
-        <div class="navigation">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    {% endif %}
+        {% if pagination is defined and pagination is not empty %}
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
+    </section>
 {% endblock %}

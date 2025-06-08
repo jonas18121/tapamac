@@ -5,11 +5,12 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/css/backend/category/list/index.css" rel="stylesheet" />
+    <link href="/css/components/pagination/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
     <section class="container">
-        <p><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
+        <p class="add"><a href="{{ path('app_backend_category_create' ) }}">Ajouter une catégorie</a></p>
 
         {% if pagination is defined and pagination is not empty  %}
             <table class="table">
@@ -48,12 +49,12 @@
         {% else %}
             <p>Aucune catégorie n'est créée</p>
         {% endif %}
+    
+        {% if pagination is defined and pagination is not empty %}
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        {% endif %}
     </section>
-
-    {% if pagination is defined and pagination is not empty %}
-        {# display navigation #}
-        <div class="navigation">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    {% endif %}
 {% endblock %}

@@ -6,9 +6,14 @@
         %}
             {# Surcharge d'autres éléments/propriétés #}
             {% block surchargeOne %}
-                {{ dump(product) }}
-
+                <p>Prix : {{ product.price}} €</p>
+                <p>{{ product.description}}</p>
+                <p>Catégorie : {{ product.category.name}}</p>
                 <p class=''>Date de création : {{ product.createdat | date('d/m/Y H:i') }}</p>
+                <p class=''>Date de modification : {{ product.updatedat | date('d/m/Y H:i') }}</p>
+                {% if product.deletedat is not defined %}
+                    <p class=''>Date de fausse suppression : {{ product.deletedat | date('d/m/Y H:i') }}</p>
+                {% endif %}
             {% endblock surchargeOne %}
 
             {# Surcharge d'autres éléments/propriétés #}
