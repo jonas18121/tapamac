@@ -134,5 +134,4 @@ class ProductManager extends BaseManager
     {
         return $this->productRepository->findBySearch($searchData);
     }
-
 }
