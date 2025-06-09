@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/css/components/pagination/index.css" rel="stylesheet" />
+    <link href="/css/components/searchbar/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
@@ -14,7 +15,13 @@
 
 {% block body %}
     <section class="container">
-        <p class="add"><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
+        <div class="container_add_search">
+            <p class="add"><a href="{{ path('app_backend_product_create' ) }}">Ajouter un produit</a></p>
+
+            {% include 'components/_searchbar.html.twig' with {
+                formSearch: formSearch
+            } only %}
+        </div>
 
         {% if pagination is defined and pagination is not empty  %}
             <table class="table">

@@ -1,0 +1,10 @@
+<div class="search">
+    {{ form_start(formSearch, { 'attr' : { 'class' : 'search_form' }} ) }}
+        <div class="search_container">
+            <p class="search_title">
+               
+            </p>
+            {{ form_widget(formSearch.query, { 'attr' : { 'class' : 'search_input' }} ) }}
+        </div>
+    {{ form_end(formSearch) }}
+</div>

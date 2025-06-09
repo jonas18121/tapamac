@@ -145,3 +145,9 @@ table{
     background-color: #04AA6D;
     color: var(--white);
 }
+
+.container_add_search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
