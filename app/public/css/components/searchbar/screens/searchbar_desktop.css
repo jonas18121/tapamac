@@ -1,0 +1,10 @@
+/* **************** CSS pour desktop par défaut *********************** */
+/* CSS desktop min 1024px */
+
+@import url('../../../general/variables.css');
+
+.search .search_form input {
+    padding: 1.5rem;
+    border: 1px solid var(--grey);
+    border-radius: 10px;
+}
