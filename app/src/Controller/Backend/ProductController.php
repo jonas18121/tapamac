@@ -8,11 +8,14 @@ use App\Entity\Product;
 use App\Form\SearchType;
 use App\Form\ProductType;
 use App\Manager\ProductManager;
+use App\Service\ProductService;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 
 final class ProductController extends AbstractController
 {
@@ -21,11 +24,11 @@ final class ProductController extends AbstractController
         name: 'app_backend_product_list'
     )]
     public function list(
-        ProductManager $productManager,
+        ProductService $productService,
         Request $request
     ): Response
     {
-        /** @var User|null */
+        /** @var User|null $user */
         $user = $this->getUser();
 
         if (!$user) {
@@ -33,18 +36,11 @@ final class ProductController extends AbstractController
         }
         
         $searchData = new SearchData();
+        /** @var Form $formSearch */
         $formSearch = $this->createForm(SearchType::class, $searchData);
 
-        $formSearch->handleRequest($request);
-
-        if($formSearch->isSubmitted() && $formSearch->isValid()){
-            $searchData->setPage($request->query->getInt('page', 1));
-            $pagination = $productManager->search($searchData);
-        }
-        else {
-            // Tous les produits
-            $pagination = $productManager->list($request->query->getInt('page', 1), 'product', 1);
-        }
+        /** @var SlidingPagination|null $pagination */
+        $pagination = $productService->getList($formSearch, $searchData, $request);
 
         return $this->render('backend/product/backend_product_list.html.twig', [
             'pagination' => $pagination,

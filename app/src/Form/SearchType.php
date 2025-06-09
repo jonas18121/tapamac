@@ -18,8 +18,8 @@ class SearchType extends AbstractType
             ->add('query', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Recherche ',
-                    'required' => false
                 ],
+                'required' => false
             ])
         ;
     }
