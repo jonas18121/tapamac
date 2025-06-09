@@ -34,7 +34,11 @@ class ProductService
      * Retourne le(s) produit(s) qui sont rechercher via la barre de recherche 
      * Sinon par défaut, retourne tous les produits
     */
-    public function getList(Form $formSearch, SearchData $searchData, Request $request): ?SlidingPagination
+    public function getList(
+        Form $formSearch, 
+        SearchData $searchData, 
+        Request $request
+    ): ?SlidingPagination
     {
         $formSearch->handleRequest($request);
 
