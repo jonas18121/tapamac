@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\User;
+use App\DTO\SearchData;
 use App\Entity\Product;
 use App\Manager\FileManager;
 use App\Repository\ProductRepository;
@@ -126,4 +127,12 @@ class ProductManager extends BaseManager
                 throw new Exception("Aucune méthode valide n'a été indiquer pour télécharger des images.");
         }
     }
+
+    public function search(
+        SearchData $searchData
+    ): ?SlidingPagination
+    {
+        return $this->productRepository->findBySearch($searchData);
+    }
+
 }

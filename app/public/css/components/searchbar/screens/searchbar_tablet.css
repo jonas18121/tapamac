@@ -1,0 +1,9 @@
+/* **************** CSS pour tablette *********************** */
+/* CSS tablet max 1023px */
+
+@import url('../../../general/variables.css');
+
+@media only screen and (max-width: 1023px)  
+{
+    
+}

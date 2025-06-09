@@ -3,7 +3,9 @@
 namespace App\Controller\Backend;
 
 use App\Entity\User;
+use App\DTO\SearchData;
 use App\Entity\Product;
+use App\Form\SearchType;
 use App\Form\ProductType;
 use App\Manager\ProductManager;
 use App\Repository\ProductRepository;
@@ -23,8 +25,30 @@ final class ProductController extends AbstractController
         Request $request
     ): Response
     {
+        /** @var User|null */
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_home_page');
+        }
+        
+        $searchData = new SearchData();
+        $formSearch = $this->createForm(SearchType::class, $searchData);
+
+        $formSearch->handleRequest($request);
+
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $searchData->setPage($request->query->getInt('page', 1));
+            $pagination = $productManager->search($searchData);
+        }
+        else {
+            // Tous les produits
+            $pagination = $productManager->list($request->query->getInt('page', 1), 'product', 2);
+        }
+
         return $this->render('backend/product/backend_product_list.html.twig', [
-            'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 10)
+            'pagination' => $pagination,
+            'formSearch' => $formSearch->createView()
         ]);
     }
 
