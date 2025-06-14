@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\DTO\SearchData;
 use App\Entity\Product;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\Traits\PaginationTrait;
 use Knp\Component\Pager\PaginatorInterface;
@@ -25,93 +26,15 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
-    // public function findListProducts(int $page): ?SlidingPagination
-    // {
-    //     /** @var array<int, Product> */
-    //     $data = $this->createQueryBuilder('p')
-    //         ->select('p')
-    //         ->getQuery()
-    //         ->getResult();
-
-    //     /** @var SlidingPagination */
-    //     $pagination = $this->paginationInterface->paginate($data, $page, 10);
-
-    //     if ($pagination instanceof SlidingPagination) {
-    //         return $pagination;
-    //     }
-
-    //     return null;
-    // }
-
     public function findBySearch(SearchData $searchData): ?SlidingPagination
     {
-        /** @var QueryBuilder $query */
-        $query = $this->createQueryBuilder('p')
-            ->select('p')
-            ->Join('p.user', 'u')
-            ->Join('p.category', 'c')
-            ->addOrderBy('p.created_at', 'DESC');
-
-        if (!empty($searchData->getQuery())) {
-            $query = $query
-
-                // Si l'user a écrit la catégorie d'un produit depuis l'input, on l'affiche
-                ->orWhere('c.name LIKE :searchCategory')
-                ->setParameter('searchCategory', "%{$searchData->getQuery()}%")
-
-                // Si l'user a écrit le nom du créateur de l'annonce du produit depuis l'input, on l'affiche
-                ->orWhere('u.firstName LIKE :searchUserFirstName')
-                ->setParameter('searchUserFirstName', "%{$searchData->getQuery()}%") 
-
-                // Si l'user a écrit le nom du créateur de l'annonce du produit depuis l'input, on l'affiche
-                ->orWhere('u.lastName LIKE :searchUserLastName')
-                ->setParameter('searchUserLastName', "%{$searchData->getQuery()}%") 
-
-                // Si l'user a écrit le prix d'un produit depuis l'input, on l'affiche
-                ->orWhere('p.price LIKE :searchPrice')
-                ->setParameter('searchPrice', "%{$searchData->getQuery()}%")
-
-                // Si l'user a écrit la date de créaction d'un produit depuis l'input, on l'affiche
-                ->orWhere('p.created_at LIKE :searchCreatedAt')
-                ->setParameter('searchCreatedAt', "%{$searchData->getQuery()}%")
-
-                // Si l'user a écrit le titre d'un produit depuis l'input, on l'affiche
-                ->orWhere('p.title LIKE :searchTitle')
-                ->setParameter('searchTitle', "%{$searchData->getQuery()}%")
-            ;
-        }
-
         /** @var array<int, Product> $data */
-        $data = $query
+        $data = $this->requestPreparedProductList($searchData)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
-        /** @var SlidingPagination */
+        /** @var SlidingPagination $pagination */
         $pagination = $this->paginationInterface->paginate($data, $searchData->getPage(), 2);
 
         if ($pagination instanceof SlidingPagination) {
@@ -119,5 +42,71 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         return null;
+    }
+
+    public function countTotal(): int
+    {
+        return (int) $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Compte le nombre total de produits
+     * Soit depuis la recherche ou soit depuis la liste complète
+     * Retourne 0 (Zero) si pas de produits
+     */
+    public function countTotalAndFilteredProducts(SearchData $searchData): int
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->Join('p.user', 'u')
+            ->Join('p.category', 'c')
+            ->addOrderBy('p.created_at', 'DESC')
+        ;
+
+        if (!empty($searchData->getQuery())) {
+            $queryBuilder = $this->requestPreparedToSearch($queryBuilder, $searchData);
+        }
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Requête préparer pour retourner une liste de produits
+     */
+    public function requestPreparedProductList(SearchData $searchData): QueryBuilder
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->select('p')
+            ->Join('p.user', 'u')
+            ->Join('p.category', 'c')
+            ->addOrderBy('p.created_at', 'DESC');
+
+        if (!empty($searchData->getQuery())) {
+            $queryBuilder = $this->requestPreparedToSearch($queryBuilder, $searchData);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Requête préparer pour retourner la valeur d'un de ces colonnes de la BDD depuis l'input search   
+     */
+    public function requestPreparedToSearch(QueryBuilder $queryBuilder, SearchData $searchData): QueryBuilder
+    {
+        return $queryBuilder
+            ->andWhere('
+                c.name LIKE :search
+                OR u.firstName LIKE :search
+                OR u.lastName LIKE :search
+                OR p.price LIKE :search
+                OR p.created_at LIKE :search
+                OR p.title LIKE :search
+            ')
+            ->setParameter('search', "%{$searchData->getQuery()}%")
+        ;
     }
 }
