@@ -39,11 +39,12 @@ final class ProductController extends AbstractController
         /** @var Form $formSearch */
         $formSearch = $this->createForm(SearchType::class, $searchData);
 
-        /** @var SlidingPagination|null $pagination */
-        $pagination = $productService->getList($formSearch, $searchData, $request);
+        // Retourne 2 variables $count et $pagination
+        [$count, $pagination] = $productService->getListAndCount($formSearch, $searchData, $request);        
 
         return $this->render('backend/product/backend_product_list.html.twig', [
             'pagination' => $pagination,
+            'count' => $count,
             'formSearch' => $formSearch->createView()
         ]);
     }
