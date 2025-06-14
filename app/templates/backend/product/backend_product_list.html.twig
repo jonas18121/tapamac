@@ -65,6 +65,12 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row">Totals</th>
+                        <td colspan="6">{{ count['countTotalProductFiltered'] }} produit(s) trouvé(s)</td>
+                    </tr>
+                </tfoot>
             </table>
         {% else %}
             <p>Aucun produit n'est créée</p>

@@ -134,4 +134,15 @@ class ProductManager extends BaseManager
     {
         return $this->productRepository->findBySearch($searchData);
     }
+
+    public function countList(
+        SearchData $searchData
+    ): array
+    {
+        $count = [
+            "countTotalProductFiltered" => $this->productRepository->countTotalAndFilteredProducts($searchData)
+        ];
+
+        return $count;
+    }
 }

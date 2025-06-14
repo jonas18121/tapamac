@@ -51,4 +51,32 @@ class ProductService
         // Par défaut
         return $this->productManager->list($request->query->getInt('page', 1), 'product', 3);
     }
+
+    /** 
+     * Retourne le(s) produit(s) qui sont rechercher via la barre de recherche 
+     * Sinon par défaut, retourne tous les produits
+     * Retourne aussi le nombre de produits trouver
+    */
+    public function getListAndCount(
+        Form $formSearch, 
+        SearchData $searchData, 
+        Request $request
+    ): array
+    {
+        $formSearch->handleRequest($request);
+
+        // Searchbar
+        if($formSearch->isSubmitted() && $formSearch->isValid()){
+            $searchData->setPage($request->query->getInt('page', 1));
+            $productList = $this->productManager->search($searchData);
+            $count = $this->productManager->countList($searchData);
+            return [$count, $productList];
+        }
+
+        $count = $this->productManager->countList($searchData);
+        $productList = $this->productManager->list($request->query->getInt('page', 1), 'product', 3);
+
+        // Par défaut
+        return [$count, $productList];
+    }
 }
