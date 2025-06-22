@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Repository\Traits\PaginationTrait;
+use App\DTO\SearchData;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Traits\PaginationTrait;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -41,46 +43,77 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findBySearch(SearchData $searchData): ?SlidingPagination
+    {
+        /** @var array<int,User> $data */
+        $data = $this->requestPreparedElementList($searchData)
+            ->getQuery()
+            ->getResult()
+        ;
 
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        /** @var SlidingPagination $pagination */
+        $pagination = $this->paginationInterface->paginate($data, $searchData->getPage(), 2);
 
-    // public function findListUsers(int $page): ?SlidingPagination
-    // {
-    //     /** @var array<int, User> */
-    //     $data = $this->createQueryBuilder('u')
-    //         ->select('u')
-    //         ->getQuery()
-    //         ->getResult();
+        if ($pagination instanceof SlidingPagination) {
+            return $pagination;
+        }
 
-    //     /** @var SlidingPagination */
-    //     $pagination = $this->paginationInterface->paginate($data, $page, 10);
+        return null;
+    }
 
-    //     if ($pagination instanceof SlidingPagination) {
-    //         return $pagination;
-    //     }
+    /**
+     * Compte le nombre total d'éléments
+     * Soit depuis la recherche ou soit depuis la liste complète
+     * Retourne 0 (Zero) si pas de éléments
+     */
+    public function countTotalAndFilteredElements(SearchData $searchData): int
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->addOrderBy('u.created_at', 'DESC')
+            ->andWhere('u.isVerified = 1')
+        ;
 
-    //     return null;
-    // }
+        if (!empty($searchData->getQuery())) {
+            $queryBuilder = $this->requestPreparedToSearch($queryBuilder, $searchData);
+        }
+
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Requête préparer pour retourner une liste d'éléments
+     */
+    public function requestPreparedElementList(SearchData $searchData): QueryBuilder
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->select('u')
+            ->addOrderBy('u.created_at', 'DESC');
+
+        if (!empty($searchData->getQuery())) {
+            $queryBuilder = $this->requestPreparedToSearch($queryBuilder, $searchData);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Requête préparer pour retourner la valeur d'un de ces colonnes de la BDD depuis l'input search   
+     */
+    public function requestPreparedToSearch(QueryBuilder $queryBuilder, SearchData $searchData): QueryBuilder
+    {
+        return $queryBuilder
+            ->andWhere('
+                u.phoneNumber LIKE :search
+                OR u.firstName LIKE :search
+                OR u.lastName LIKE :search
+                OR u.email LIKE :search
+                OR u.created_at LIKE :search
+                OR u.gender LIKE :search
+                OR u.situation LIKE :search
+            ')
+            ->setParameter('search', "%{$searchData->getQuery()}%")
+        ;
+    }
 }
