@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\User;
+use App\DTO\SearchData;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -95,5 +96,23 @@ class UserManager extends BaseManager
     ): ?SlidingPagination
     {
         return $this->userRepository->findPaginationList($page, $name, $limit);
+    }
+
+    public function search(
+        SearchData $searchData
+    ): ?SlidingPagination
+    {
+        return $this->userRepository->findBySearch($searchData);
+    }
+
+    public function countList(
+        SearchData $searchData
+    ): array
+    {
+        $count = [
+            "countTotalElementFiltered" => $this->userRepository->countTotalAndFilteredElements($searchData)
+        ];
+
+        return $count;
     }
 }

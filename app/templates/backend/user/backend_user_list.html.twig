@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/css/components/pagination/index.css" rel="stylesheet" />
+    <link href="/css/components/searchbar/index.css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
@@ -14,7 +15,13 @@
 
 {% block body %}
     <section class="container">
-        <p class="add"><a href="{{ path('app_backend_user_create' ) }}">Ajouter un utilisateur</a></p>
+        <div class="container_add_search">
+            <p class="add"><a href="{{ path('app_backend_user_create' ) }}">Ajouter un utilisateur</a></p>
+
+            {% include 'components/_searchbar.html.twig' with {
+                formSearch: formSearch
+            } only %}
+        </div>
 
         {% if pagination is defined and pagination is not empty  %}
             <table class="table">
@@ -60,6 +67,12 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row">Totals</th>
+                        <td colspan="7">{{ count['countTotalElementFiltered'] }} élément(s) trouvé(s)</td>
+                    </tr>
+                </tfoot>
             </table>
         {% else %}
             <p>Aucun utilisateur n'est créée</p>

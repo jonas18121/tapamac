@@ -28,7 +28,7 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findBySearch(SearchData $searchData): ?SlidingPagination
     {
-        /** @var array<int, Product> $data */
+        /** @var array<int,Product> $data */
         $data = $this->requestPreparedProductList($searchData)
             ->getQuery()
             ->getResult()

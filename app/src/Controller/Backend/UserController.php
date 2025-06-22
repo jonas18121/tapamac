@@ -4,7 +4,11 @@ namespace App\Controller\Backend;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\DTO\SearchData;
+use App\Form\SearchType;
 use App\Manager\UserManager;
+use App\Service\UserService;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,12 +21,28 @@ final class UserController extends AbstractController
         name: 'app_backend_user_list'
     )]
     public function list(
-        UserManager $userManager, 
+        UserService $userService, 
         Request $request
     ): Response
     {
+        /** @var User|null $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_home_page');
+        }
+
+        $searchData = new SearchData();
+        /** @var Form $formSearch */
+        $formSearch = $this->createForm(SearchType::class, $searchData);
+
+        // Retourne 2 variables $count et $pagination
+        [$count, $pagination] = $userService->getListAndCount($formSearch, $searchData, $request);  
+
         return $this->render('backend/user/backend_user_list.html.twig', [
-            'pagination' => $userManager->list($request->query->getInt('page', 1), 'user', 2)
+            'pagination' => $pagination,
+            'count' => $count,
+            'formSearch' => $formSearch->createView()
         ]);
     }
 
