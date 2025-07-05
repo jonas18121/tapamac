@@ -138,8 +138,10 @@ final class UserAccountController extends AbstractController
         Request $request
     ): JsonResponse
     {
+        /** @var string $gender */
         $gender = $request->query->get('gender');
 
+        /** @var array $situations */
         $situations = [
             'non_selection' => [
                 'Choisir un genre avant de choisir une situation' => '',
@@ -169,5 +171,32 @@ final class UserAccountController extends AbstractController
         ];
 
         return new JsonResponse($situations[$gender] ?? []);
+    }
+
+    #[Route(
+        'user/ajax/get/typeOfContract', 
+        name: 'app_user_ajax_get_type_of_contract'
+    )]
+    public function ajaxGetTypeOfContracts(
+        Request $request
+    ): JsonResponse
+    {
+        /** @var string $professional */
+        $professional = $request->query->get('professional');
+
+        /** @var array $typeOfContracts */
+        $typeOfContracts = [
+            'non_selection' => [
+                'Choisir un genre avant de choisir une situation' => '',
+            ],
+
+            'employe' => [
+                'CDI' => 'cdi',
+                'CDD' => 'cdd',
+                'Interim' => 'interim'
+            ],
+        ];
+
+        return new JsonResponse($typeOfContracts[$professional] ?? []);
     }
 }

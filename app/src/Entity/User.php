@@ -68,6 +68,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $situation = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $professional = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $typeOfContract = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -262,7 +268,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->gender;
     }
 
-    public function setGender(string $gender): static
+    public function setGender(?string $gender): static
     {
         $this->gender = $gender;
 
@@ -274,9 +280,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->situation;
     }
 
-    public function setSituation(string $situation): static
+    public function setSituation(?string $situation): static
     {
         $this->situation = $situation;
+
+        return $this;
+    }
+
+    public function getProfessional(): ?string
+    {
+        return $this->professional;
+    }
+
+    public function setProfessional(?string $professional): static
+    {
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+    public function getTypeOfContract(): ?string
+    {
+        return $this->typeOfContract;
+    }
+
+    public function setTypeOfContract(?string $typeOfContract): static
+    {
+        $this->typeOfContract = $typeOfContract;
 
         return $this;
     }

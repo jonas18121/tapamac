@@ -34,6 +34,28 @@
             <small class="error_input_small">{{ form_errors(formUser.situation) }}</small>
         </div>
 
+        <div class="container_form_element">
+            <div id="container_user_professional">
+                <label for="user_professional" class="form_label">Situation professionnel</label>
+                {{ form_widget(formUser.professional, {attr : {class : 'form_input' }} ) }}
+            </div>
+            <small class="error_input_small">{{ form_errors(formUser.professional) }}</small>
+        </div>
+
+        {% if formUser.typeOfContract is defined %}
+            <div class="container_form_element">
+                <div id="container_user_typeOfContract">
+                    <label for="user_typeOfContract" class="form_label">Type de contrat</label>
+                    {{ form_widget(formUser.typeOfContract, {attr : {class : 'form_input' }} ) }}
+                </div>
+                <small class="error_input_small">{{ form_errors(formUser.typeOfContract) }}</small>
+            </div>
+          {% else %}
+            <div class="container_form_element">
+                <div id="container_user_typeOfContract"></div>
+            </div>
+        {% endif %}
+
         {# Bouton par défaut qui peut être surcharger #}
         {% block formButton %}
             <button type="submit" class="btn">Valider</button>
