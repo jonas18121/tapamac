@@ -12,3 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     userClass.getSituations(gender, situation);
 });
+
+// Permet d'obtenir une liste de Type de contrat dans un champ de selection
+document.addEventListener('DOMContentLoaded', function () {
+    // Références aux éléments
+    const professional = document.getElementById('user_professional');
+    const typeOfContract = document.getElementById('user_typeOfContract');
+
+    userClass.getTypeOfContract(professional, typeOfContract);
+});
