@@ -188,7 +188,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $email = (new Email())
             ->from('serveur@monsite.com')
             ->to('admin@gmail.com')
-            ->subject("[{$type}] Nouvelle erreur détectée ({$statusCode}) Application Tapamac")
+            ->subject("[{$type}] Nouvelle erreur détectée ({$statusCode}) - Application Tapamac")
             ->html("
                 <h2>Erreur détectée de type : {$type}</h2>
                 <p><strong>Application :</strong> Tapamac</p>
