@@ -12,11 +12,14 @@
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
         "knplabs/knp-paginator-bundle": "^6.8",
+        "mailjet/mailjet-apiv3-php": "^1.6",
         "symfony/console": "7.2.*",
         "symfony/dotenv": "7.2.*",
         "symfony/flex": "^2",
         "symfony/form": "7.2.*",
         "symfony/framework-bundle": "7.2.*",
+        "symfony/lock": "7.2.*",
+        "symfony/mailer": "7.2.*",
         "symfony/mime": "7.2.*",
         "symfony/runtime": "7.2.*",
         "symfony/security-bundle": "7.2.*",
@@ -79,7 +82,7 @@
         "phpmetrics/phpmetrics": "^2.8.2",
         "symfony/debug-bundle": "7.2.*",
         "symfony/maker-bundle": "^1.62",
-        "symfony/monolog-bundle": "^3.0",
+        "symfony/monolog-bundle": "^3.11",
         "symfony/stopwatch": "7.2.*",
         "symfony/web-profiler-bundle": "7.2.*"
     }

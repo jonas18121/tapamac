@@ -67,7 +67,7 @@ class UserType extends AbstractType
         ]);
     }
 
-    // Custom Methode
+    // ============ Custom Methode ============ //
 
     /**
      * Affiche le champ select situation familiale en fonction du choix du champ select genre

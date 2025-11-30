@@ -22,3 +22,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\EventSubscriber\ExceptionSubscriber:
+        arguments:
+            $errorLogger: '@monolog.logger.exception.error'
+            $criticalLogger: '@monolog.logger.exception.critical'
+            $alertLogger: '@monolog.logger.exception.alert'
+            $emergencyLogger: '@monolog.logger.exception.emergency'
+            $mailer: '@mailer'
+            $dedupeCache: '@cache.app'
+            $lockFactory: '@lock.factory' 
+            
+        tags:
+        - { name: kernel.event_subscriber }
