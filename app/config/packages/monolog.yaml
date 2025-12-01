@@ -27,7 +27,7 @@ when@dev:
                 process_psr_3_messages: false
                 channels: ["!event", "!doctrine", "!console"]
 
-             # Intercepte les erreurs de type ERROR : erreurs "normales" (404, 403, 400...)
+            # Intercepte les erreurs de type ERROR : erreurs "normales" (404, 403, 400...)
             error_logs:
                 type: rotating_file
                 path: "%kernel.logs_dir%/exception/error/error.log"
@@ -101,3 +101,39 @@ when@prod:
                 channels: [deprecation]
                 path: php://stderr
                 formatter: monolog.formatter.json
+
+            # Intercepte les erreurs de type ERROR : erreurs "normales" (404, 403, 400...)
+            error_logs:
+                type: rotating_file
+                path: "%kernel.logs_dir%/exception/error/error.log"
+                level: error
+                max_files: 30
+                channels: ["exception.error"] # créer des sous-canaux (ex: exception.error, exception.critical, etc.) pour un tri propre
+                bubble: false # empêcher un handler de niveau inférieur d’attraper un message de niveau supérieur.
+
+            # Intercepte les erreurs de type CRITICAL : erreurs serveur 500+ (500, 502, 503...)
+            critical_logs:
+                type: rotating_file
+                path: "%kernel.logs_dir%/exception/critical/critical.log"
+                level: critical
+                max_files: 30
+                channels: ["exception.critical"]
+                bubble: false # empêcher un handler de niveau inférieur d’attraper un message de niveau supérieur.
+
+            # Intercepte les erreurs de type ALERT : erreurs importantes (BDD, sécurité, API)
+            alert_logs:
+                type: rotating_file
+                path: "%kernel.logs_dir%/exception/alert/alert.log"
+                level: alert
+                max_files: 30
+                channels: ["exception.alert"]
+                bubble: false # empêcher un handler de niveau inférieur d’attraper un message de niveau supérieur.
+
+            # Intercepte les erreurs de type EMERGENCY : crashs fatals (TypeError, ParseError, Error)
+            emergency_logs:
+                type: rotating_file
+                path: "%kernel.logs_dir%/exception/emergency/emergency.log"
+                level: emergency
+                max_files: 30
+                channels: ["exception.emergency"]  
+                bubble: false # empêcher un handler de niveau inférieur d’attraper un message de niveau supérieur.

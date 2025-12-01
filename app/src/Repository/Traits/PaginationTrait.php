@@ -27,13 +27,13 @@ trait PaginationTrait
 
     public function findPaginationList(int $page, string $name, int $limit): ?SlidingPagination
     {
-        /** @var array */
+        /** @var array $data */
         $data = $this->createQueryBuilder($name)
             ->select($name)
             ->getQuery()
             ->getResult();
 
-        /** @var SlidingPagination */
+        /** @var SlidingPagination $pagination */
         $pagination = $this->paginationInterface->paginate($data, $page, $limit);
 
         if ($pagination instanceof SlidingPagination) {
