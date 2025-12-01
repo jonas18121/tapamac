@@ -16,7 +16,11 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
-    private const DEDUPLICATE_MINUTES = 1;
+    # Définit le nombre de minutes souhaiter pour attendre avant d'envoyer un mail et un log pour une même erreur
+    private const COOL_DOWN_IN_MINUTES = 1;
+
+    # Calcule pour que COOL_DOWN_IN_MINUTES soit vraiment traduit en minitues
+    private const COOL_DOWN = self::COOL_DOWN_IN_MINUTES * 60;
 
     public function __construct(
         private LoggerInterface $errorLogger,
@@ -116,8 +120,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Gère le type d'erreur qui doit être utiliser par $logger
-     * Et gére quel type de logger à utiliser
+     * Détermine le type d’exception et le logger associé.
      * 
      * Exemple : 
      *     - $logger->error()
@@ -127,6 +130,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
      */
     private function managerException(\Throwable $exception, int $statusCode): array
     {
+        # Utiliser true pour envoyer des mails dans d'autres environnement que la prod
+        # true est a utiliser temporairement
+        /** @var bool $allowsAllEnv */
+        $allowsAllEnv = true;
+
         /** @var string $message */
         $message = strtolower($exception->getMessage());
 
@@ -140,7 +148,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             $exception instanceof \ParseError ||
             $exception instanceof \ErrorException
         ) {
-            $this->sendEmail('EMERGENCY', $exception, $statusCode);
+            $this->sendEmail('EMERGENCY', $exception, $statusCode, $allowsAllEnv);
             return ['emergency', $this->emergencyLogger, 'Fatal error'];
         }
 
@@ -159,7 +167,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             str_contains($message, 'timeout') ||
             str_contains($message, 'unavailable')
         ) {
-            $this->sendEmail('ALERT', $exception, $statusCode);
+            $this->sendEmail('ALERT', $exception, $statusCode, $allowsAllEnv);
             return ['alert', $this->alertLogger, 'Database error'];
         }
 
@@ -167,7 +175,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         // 3. CRITICAL (Erreurs serveur 500+)
         // ============================
         if ($statusCode >= 500) {
-            $this->sendEmail('CRITICAL', $exception, $statusCode);
+            $this->sendEmail('CRITICAL', $exception, $statusCode, $allowsAllEnv);
             return ['critical', $this->criticalLogger, 'Server error'];
         }
 
@@ -175,7 +183,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         // ============================
         // 4. ERROR (Par défault)
         // ============================
-        $this->sendEmail('ERROR', $exception, $statusCode);
+        $this->sendEmail('ERROR', $exception, $statusCode, $allowsAllEnv);
         // Erreurs fonctionnelles ou utilisateur
         return ['error', $this->errorLogger, 'Client error'];
     }
@@ -222,11 +230,9 @@ class ExceptionSubscriber implements EventSubscriberInterface
         /** @var Lock $lock */
         $lock = $this->lockFactory->createLock($key, ttl: 5);
 
-        // On attend le lock : QUAND IL EST ACQUIS, on peut lire proprement
-        $lock->acquire(true);
-
+        // Si $lock->acquire() retourne false, considérer comme doublon
         if (!$lock->acquire()) {
-            // Si quelqu’un d’autre est en train d'écrire → considérer comme doublon
+            // isDuplicate retournera true
             return true;
         }
 
@@ -267,9 +273,9 @@ class ExceptionSubscriber implements EventSubscriberInterface
             // On stocke une valeur dans l’item. // la valeur n’a pas d’importance
             $item->set(true);
     
-            // Demande que l’item expire automatiquement après le nombre de temps définit dans DEDUPLICATE_MINUTES . 
+            // Demande que l’item expire automatiquement après le nombre de temps définit dans COOL_DOWN . 
             // C’est la durée pendant laquelle la clé empêchera l’envoi d’un nouvel e-mail.
-            $item->expiresAfter(self::DEDUPLICATE_MINUTES * 60);
+            $item->expiresAfter(self::COOL_DOWN);
     
             // On sauvegarde l’item dans le pool de cache. 
             // Après save() la clé existe et isHit() renverra true jusqu’à l’expiration
