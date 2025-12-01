@@ -23,6 +23,7 @@ final class ProductController extends AbstractController
         Request $request
     ): Response
     {
+        throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Bearer', "Test erreur ERROR : non authentifié !"); 
         return $this->render('frontend/product/product_list.html.twig', [
             'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
         ]);
