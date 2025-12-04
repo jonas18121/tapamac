@@ -30,9 +30,14 @@ services:
             $alertLogger: '@monolog.logger.exception.alert'
             $emergencyLogger: '@monolog.logger.exception.emergency'
             $mailer: '@mailer'
-            $dedupeCache: '@cache.app'
+            $dedupeCache: '@App\Service\CacheService'
             $lockFactory: '@lock.factory' 
             $environment: '%kernel.environment%'
             
         tags:
         - { name: kernel.event_subscriber }
+
+    App\Service\CacheService:
+        arguments:
+            $innerPool: '@cache.app'     # var/cache/<env>/pools/app à "auto-pruner" 
+            $cacheDir: '%kernel.cache_dir%/pools/app' # dossier réel des clés

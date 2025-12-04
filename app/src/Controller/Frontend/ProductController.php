@@ -25,7 +25,7 @@ final class ProductController extends AbstractController
     ): Response
     {
         return $this->render('frontend/product/product_list.html.twig', [
-            // 'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
+            'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
         ]);
     }
 
