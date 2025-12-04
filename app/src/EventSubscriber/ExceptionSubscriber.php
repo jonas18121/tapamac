@@ -10,6 +10,7 @@ use Doctrine\ORM\Query\QueryException;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -38,7 +39,8 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         return [
             // 'kernel.exception' => 'onKernelException',
-            ExceptionEvent::class => 'onKernelException',
+            // ExceptionEvent::class => 'onKernelException',
+            KernelEvents::EXCEPTION => 'onKernelException',
         ];
     }
 
@@ -224,7 +226,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private function isDuplicate(string $id): bool
     {
         /** @var string $key */
-        $key = 'dedupe_' . $id;
+        $key = 'cool_down_' . $id;
 
         // Lock pour éviter les races conditions si plusieurs requête en même temps
         /** @var Lock $lock */
@@ -256,7 +258,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private function registerError(string $id): void
     {
         /** @var string $key */
-        $key = 'dedupe_' . $id;
+        $key = 'cool_down_' . $id;
 
         // Crée un verrou portant un nom unique
         /** @var Lock $lock */
