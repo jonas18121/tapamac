@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ProductController extends AbstractController
 {
@@ -23,9 +24,8 @@ final class ProductController extends AbstractController
         Request $request
     ): Response
     {
-        throw new \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException('Bearer', "Test erreur ERROR : non authentifié !"); 
         return $this->render('frontend/product/product_list.html.twig', [
-            'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
+            // 'pagination' => $productManager->list($request->query->getInt('page', 1), 'product', 15)
         ]);
     }
 
