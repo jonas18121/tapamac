@@ -26,12 +26,12 @@ class CacheService implements CacheInterface, CacheItemPoolInterface
     private const PREFIX_KEYS_COOL_DOWN = 'cool_down_';
 
     # Définit le nombre de minutes souhaiter pour attendre avant de faire une purge du cache
-    private const PRUNE_INTERVAL_IN_MINUTES = 2;
+    private const PRUNE_INTERVAL_IN_MINUTES = 1;
 
     # Calcule pour que PRUNE_INTERVAL_IN_MINUTES soit vraiment traduit en minitues
     private const PRUNE_INTERVAL = self::PRUNE_INTERVAL_IN_MINUTES * 60; // Purge max 1 fois par minute
 
-    # Nombres de fichiers expiré max à analysé | ne compte pas les non expirés
+    # Nombres de fichiers max à analysé
     private const MAX_FILES_PER_RUN = 2;
 
     public function __construct(
@@ -142,10 +142,10 @@ class CacheService implements CacheInterface, CacheItemPoolInterface
             }
 
             
+            $count++; # compteur incrémenté 
 
             # Supprimer si expiré
             if ($expiry > 0 && $expiry < $now) {
-                $count++; # compteur incrémenté UNIQUEMENT si le fichier est expiré
 
                 @unlink($file);
 
