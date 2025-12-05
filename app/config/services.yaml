@@ -41,3 +41,4 @@ services:
         arguments:
             $innerPool: '@cache.app'     # var/cache/<env>/pools/app à "auto-pruner" 
             $cacheDir: '%kernel.cache_dir%/pools/app' # dossier réel des clés
+            $lockFactory: '@lock.factory' 
