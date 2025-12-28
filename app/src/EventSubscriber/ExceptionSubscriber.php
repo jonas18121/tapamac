@@ -40,9 +40,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            // 'kernel.exception' => 'onKernelException',
-            // ExceptionEvent::class => 'onKernelException',
-            KernelEvents::EXCEPTION => 'onKernelException',
+            // 'kernel.exception' => ['onKernelException', -100],
+            // ExceptionEvent::class => ['onKernelException', -100],
+            // KernelEvents::EXCEPTION => 'onKernelException',
+            KernelEvents::EXCEPTION => ['onKernelException', -100],
         ];
     }
 
@@ -77,15 +78,20 @@ class ExceptionSubscriber implements EventSubscriberInterface
         // Gère le type d'erreur qui doit être utiliser par $logger et le type de logger à utiliser
         [$level, $logger, $text] = $this->managerException($exceptionLogger, $statusCode, $request);
 
-        // LOG avec le niveau d'erreur déterminé
-        $logger->$level($text, [
-            'status_code' => $statusCode,
-            'message' => $exceptionLogger->getMessage(),
-            'file' => $exceptionLogger->getFile(),
-            'line' => $exceptionLogger->getLine(),
-            // Attention trace = beaucoup de texte, utile pour debug
-            // 'trace' => $exceptionLogger->getTraceAsString(),
-        ]);
+        try {
+            // LOG avec le niveau d'erreur déterminé
+            $logger->$level($text, [
+                'status_code' => $statusCode,
+                'message' => $exceptionLogger->getMessage(),
+                'file' => $exceptionLogger->getFile(),
+                'line' => $exceptionLogger->getLine(),
+                // Attention trace = beaucoup de texte, utile pour debug
+                // 'trace' => $exceptionLogger->getTraceAsString(),
+            ]);
+        } catch (\Throwable $error) {
+            # dernier rempart : ne rien faire
+            # empêche de créer une boucle infinit d'erreur, si le logger ne fonctionne pas
+        }
     }
 
     /**
@@ -263,6 +269,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
             $this->mailer->send($email);
         } catch (\Throwable $error) {
+            # dernier rempart : ne rien faire
             # empêche de créer une boucle infinit d'erreur, si le mail ne fonctionne pas
         }
     }
